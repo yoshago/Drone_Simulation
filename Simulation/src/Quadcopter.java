@@ -14,7 +14,7 @@ public class Quadcopter {
 	public Quadcopter(Lidar front, Lidar right, Lidar left, Lidar back, OF of, Yaw yaw, RoomMap bg)
 	{
 		this.front=front;
-		this.right=right;
+		this.right=right;  
 		this.left=left;
 		this.back=back;
 		this.of=of;
