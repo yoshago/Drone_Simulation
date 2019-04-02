@@ -1,4 +1,6 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -6,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 
 public class main {
 
@@ -23,6 +26,12 @@ public class main {
 			  }
 			  System.out.println();
 		}
-		simulationMap.exportMap("test1");
+		JFrame testFrame = new JFrame();
+	    testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	    final GUI comp = new GUI();
+	    comp.setPreferredSize(new Dimension(backgroundMap.getWidth(), backgroundMap.getHeight()));
+	    testFrame.getContentPane().add(comp, BorderLayout.CENTER);
+	    Color red = Color.red;
+	    comp.addPoint(60, 60, 4, red);
 	}
 }
