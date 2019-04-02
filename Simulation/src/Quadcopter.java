@@ -20,7 +20,7 @@ public class Quadcopter {
 	public Quadcopter(Lidar front, Lidar right, Lidar left, Lidar back, OF of, Yaw yaw, RoomMap bg)
 	{
 		this.front=front;
-		this.right=right;
+		this.right=right;  
 		this.left=left;
 		this.back=back;
 		this.of=of;
@@ -49,6 +49,7 @@ public class Quadcopter {
 	{
 		computeWay();
 	}
+
 	public void manualStart() {
 		KeyListener1 key = new KeyListener1(this,gui);
 		try {
@@ -59,6 +60,7 @@ public class Quadcopter {
 		}
 	}
 	
+
 	private int computeWay()
 	{
 		int angTogo=0;
