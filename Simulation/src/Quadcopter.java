@@ -27,7 +27,7 @@ public class Quadcopter {
 	{
 		computeWay();
 	}
-	
+	   
 	private int computeWay()
 	{
 		
