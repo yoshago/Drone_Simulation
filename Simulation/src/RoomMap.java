@@ -44,7 +44,9 @@ public class RoomMap {
 			  }
 		}
 	}
-	
+	public int checkCoordinate (Coordinate co) {
+		return  (int) mapMatrix[co.x][co.y];
+	}
 	public void exportMap(String filename) {
 		try {
 		    BufferedImage image = new BufferedImage(this.width,this.height,1);

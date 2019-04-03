@@ -111,6 +111,10 @@ public class Quadcopter {
 	public void setGui(GUI gui) {
 		this.gui = gui;
 	}
+	public boolean isLegalPosition(Coordinate position) {
+		if(background.checkCoordinate(position) == 1) return true;
+		return false;
+	}
 	
 
 }

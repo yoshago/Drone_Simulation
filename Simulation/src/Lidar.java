@@ -37,17 +37,21 @@ public class Lidar implements Runnable{
 		Coordinate finalCoor = new Coordinate(start.x,start.y);
 		int x,y;
 		int i=1;
+		boolean isWallAtTheEndOfTheRay = true;
 		while(checkCoordinate(finalCoor, backgroundMap)) 
 		{
 			x = finalCoor.x;
 			y = finalCoor.y;
-			if (finalCoor.distance(start)>=20*dist) break;
+			if (finalCoor.distance(start)>=20*dist) {
+				isWallAtTheEndOfTheRay = false;
+				break;
+			}
 			finalCoor = new Coordinate((int) (start.x + i*Math.sin(finalAng)),(int) (start.y + i*Math.cos(finalAng)));
 			i+=1;
 		}
 
 		gui.addLine(start.x, start.y, finalCoor.x, finalCoor.y);
-		gui.addPoint(finalCoor.x, finalCoor.y, 4);
+		if(isWallAtTheEndOfTheRay) gui.addPoint(finalCoor.x, finalCoor.y, 4);
 		return finalCoor.distance(start)/20;
 
 	}

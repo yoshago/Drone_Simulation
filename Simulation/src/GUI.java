@@ -39,13 +39,28 @@ public class GUI extends JComponent{
 			this.y = y;
 			this.radius = radius;
 			this.color = color;
-		}               
+		} 
+		
+		
+	}
+	public static class quadPoint{
+		int x; 
+		int y;
+		final int radius;
+		final Color color;
+
+		public quadPoint(int x, int y, int radius, Color color) {
+			this.x = x;
+			this.y = y;
+			this.radius = radius;
+			this.color = color;
+		}		
 	}
 
 
 	private final LinkedList<Line> lines = new LinkedList<Line>();
 	private final LinkedList<Point> points = new LinkedList<Point>();
-	private Coordinate quadPosition = new Coordinate(60,60);
+	private quadPoint quadPosition = new quadPoint(60,60,5,Color.yellow);
 	
 	public void setQuadPosition(Coordinate co) {
 		addLine(quadPosition.x,quadPosition.y,co.x, co.y, Color.blue);
@@ -91,6 +106,10 @@ public class GUI extends JComponent{
 			g.fillOval(point.x-point.radius/2, point.y-point.radius/2 , point.radius, point.radius); 
 			
 		}
+		g.setColor(quadPosition.color);
+		g.drawOval(quadPosition.x-quadPosition.radius/2, quadPosition.y-quadPosition.radius/2, quadPosition.radius, quadPosition.radius);
+		g.fillOval(quadPosition.x-quadPosition.radius/2, quadPosition.y-quadPosition.radius/2 , quadPosition.radius, quadPosition.radius); 
+		
 		
 
 	}
