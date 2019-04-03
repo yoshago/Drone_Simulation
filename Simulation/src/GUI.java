@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 public class GUI extends JComponent{
 
-	private static class Line{
+	public static class Line{
 		final int x1; 
 		final int y1;
 		final int x2;
@@ -28,7 +28,7 @@ public class GUI extends JComponent{
 			this.color = color;
 		}               
 	}
-	private static class Point{
+	public static class Point{
 		final int x; 
 		final int y;
 		final int radius;

@@ -14,6 +14,7 @@ public class Quadcopter {
 	private Yaw yaw;
 	private GUI gui;
 	private int angle;
+	private int lidar_dist;
 	private RoomMap background;
 	
 	
@@ -33,6 +34,17 @@ public class Quadcopter {
 		this.position = start_position;
 		this.background=bg;
 		this.gui = gui;
+		addLidars();
+	}
+	
+	public Quadcopter(RoomMap bg, int lidar_dist,Coordinate start_position)
+	{
+		this.angle = 90;
+		this.position = start_position;
+		this.background=bg;
+		this.lidar_dist = lidar_dist;
+	}
+	public void addLidars() {
 		this.front=new Lidar(lidar_dist,0, this);
 		this.right=new Lidar(lidar_dist,60, this);
 		this.left=new Lidar(lidar_dist,-55, this);
@@ -50,15 +62,7 @@ public class Quadcopter {
 		computeWay();
 	}
 
-	public void manualStart() {
-		KeyListener1 key = new KeyListener1(this,gui);
-		try {
-			TimeUnit.MILLISECONDS.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	
 	
 
 	private int computeWay()
@@ -103,6 +107,9 @@ public class Quadcopter {
 	}
 	public void setAngle(int angle) {
 		this.angle = angle;
+	}
+	public void setGui(GUI gui) {
+		this.gui = gui;
 	}
 	
 
