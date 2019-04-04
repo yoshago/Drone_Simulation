@@ -5,9 +5,12 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -63,6 +66,52 @@ public class GUI extends JComponent{
 		else {
 			gameOver();
 		}
+	}
+	
+	public HashMap<Double, List<Integer>> rotate()
+	{
+		HashMap<Double, List<Integer>> map = new HashMap<Double, List<Integer>>();
+		for(int i=0 ; i<60 ; i++)
+		{
+			
+			turn(6*i);
+			try {
+				Thread.sleep(14);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			double frontDist = quad.getFrontLidar().getCurrentDist();
+			double rightDist = quad.getRightLidar().getCurrentDist();
+			double leftDist = quad.getLeftLidar().getCurrentDist();
+			if(map.containsKey(frontDist)) {
+				map.get(frontDist).add(quad.getAngle());
+			}
+			else {
+				map.put(frontDist, new LinkedList<Integer>());
+				map.get(frontDist).add(quad.getAngle());
+			}
+			if(map.containsKey(rightDist)) {
+				map.get(rightDist).add(quad.getAngle()+60);
+			}
+			else {
+				map.put(rightDist, new LinkedList<Integer>());
+				map.get(rightDist).add(quad.getAngle()+60);
+			}
+			if(map.containsKey(leftDist)) {
+				map.get(leftDist).add(quad.getAngle()-55);
+			}
+			else {
+				map.put(leftDist, new LinkedList<Integer>());
+				map.get(leftDist).add(quad.getAngle()-55);
+			}
+			
+			
+			
+			
+		}
+		return map;
 	}
 
 

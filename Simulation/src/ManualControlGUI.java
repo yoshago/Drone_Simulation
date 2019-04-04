@@ -41,7 +41,7 @@ public class ManualControlGUI extends GUI implements KeyListener{
 			drive(false, 5);
 		}
 		if (key == KeyEvent.VK_R) {
-			quad.rotate();
+			rotate();
 		}
 
 	}

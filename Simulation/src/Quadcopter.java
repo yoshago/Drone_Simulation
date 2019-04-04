@@ -1,6 +1,7 @@
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -10,24 +11,15 @@ public class Quadcopter {
 	private Lidar rightLidar;
 	private Lidar leftLidar;
 	private Lidar backLidar;
-	private OF of;
-	private Yaw yaw;
+//	private OF of;
+//	private Yaw yaw;
 	private GUI gui;
 	private int angle;
 	private int lidar_dist;
 	private RoomMap background;
 	
 	
-	public Quadcopter(Lidar front, Lidar right, Lidar left, Lidar back, OF of, Yaw yaw, RoomMap bg)
-	{
-		this.frontLidar=front;
-		this.rightLidar=right;  
-		this.leftLidar=left;
-		this.backLidar=back;
-		this.of=of;
-		this.yaw=yaw;
-		this.background=bg;
-	}
+	
 	public Quadcopter(RoomMap bg, int lidar_dist,Coordinate start_position, GUI gui)
 	{
 		this.angle = 90;
@@ -44,6 +36,7 @@ public class Quadcopter {
 		this.background=bg;
 		this.lidar_dist = lidar_dist;
 	}
+	
 	public void addLidars() {
 		this.frontLidar=new Lidar(lidar_dist,0, this);
 		this.rightLidar=new Lidar(lidar_dist,60, this);
@@ -57,6 +50,8 @@ public class Quadcopter {
 	}
 	
 	public void navigationAlgorithm() {
+		
+//		HashMap<Integer, Double> anglesAndDistances = rotate();
 		double rightDist = rightLidar.getCurrentDist();
 		double leftDist = leftLidar.getCurrentDist();
 		double frontDist = frontLidar.getCurrentDist();
@@ -64,39 +59,8 @@ public class Quadcopter {
 		
 		
 	}
-	public void start()
-	{
-		computeWay();
-	}
-
-	
-	
-
-	private int computeWay()
-	{
-		int angTogo=0;
-		rotate();
 		
-		return angTogo;
-		
-	}
 	
-	public void rotate()
-	{
-		for(int i=0 ; i<360 ; i+=10)
-		{
-			
-			this.angle =(this.angle+i)%360;
-	
-			try {
-				TimeUnit.MILLISECONDS.sleep(14);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-	}
 	public Coordinate getPosition() {
 		return position;
 	}
@@ -118,10 +82,28 @@ public class Quadcopter {
 	public void setGui(GUI gui) {
 		this.gui = gui;
 	}
+	
+	public Lidar getFrontLidar() {
+		return frontLidar;
+	}
+
+	public Lidar getLeftLidar() {
+		return leftLidar;
+	}
+
+	public Lidar getRightLidar() {
+		return rightLidar;
+	}
+
+	public Lidar getBackLidar() {
+		return backLidar;
+	}
+
 	public boolean isLegalPosition(Coordinate position) {
 		if(background.checkCoordinate(position) == 1) return true;
 		return false;
 	}
+	
 	
 
 }
