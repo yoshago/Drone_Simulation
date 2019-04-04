@@ -38,6 +38,7 @@ public class GUI extends JComponent{
 	protected quadPoint quadPosition;
 	protected Quadcopter quad; 
 	protected boolean gameOver = false;
+	protected double time=0;
 
 	public GUI() {
 		quadPosition = new quadPoint(60,60,5,Color.yellow);
@@ -51,7 +52,9 @@ public class GUI extends JComponent{
 
 	protected void turn(int angle) {
 		quad.setAngle(quad.getAngle()+angle);
+		
 	}
+	
 	protected void drive(boolean direction, int distance) {
 		int directionMult = -1;
 		if(direction) directionMult = 1;
@@ -59,6 +62,7 @@ public class GUI extends JComponent{
 		if(quad.isLegalPosition(position)) {
 			setQuadPosition(position);
 			quad.setPosition(position);
+			time+=2*(Math.sqrt(distance));//compute and add the time of each drive 
 		}
 		else {
 			gameOver();
