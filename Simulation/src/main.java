@@ -23,7 +23,7 @@ public class main {
 		Quadcopter quad = new Quadcopter(backgroundMap, lidarDistance, start);
 		JFrame testFrame = new JFrame();
 		testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		final ManualControl comp = new ManualControl(quad);
+		final ManualControlGUI comp = new ManualControlGUI(quad);
 		comp.setPreferredSize(new Dimension(backgroundMap.getWidth(), backgroundMap.getHeight()));
 		comp.addKeyListener(comp);
 		comp.setFocusable(true);

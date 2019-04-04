@@ -6,10 +6,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Quadcopter {
 	private Coordinate position;
-	private Lidar front;
-	private Lidar right;
-	private Lidar left;
-	private Lidar back;
+	private Lidar frontLidar;
+	private Lidar rightLidar;
+	private Lidar leftLidar;
+	private Lidar backLidar;
 	private OF of;
 	private Yaw yaw;
 	private GUI gui;
@@ -20,10 +20,10 @@ public class Quadcopter {
 	
 	public Quadcopter(Lidar front, Lidar right, Lidar left, Lidar back, OF of, Yaw yaw, RoomMap bg)
 	{
-		this.front=front;
-		this.right=right;  
-		this.left=left;
-		this.back=back;
+		this.frontLidar=front;
+		this.rightLidar=right;  
+		this.leftLidar=left;
+		this.backLidar=back;
 		this.of=of;
 		this.yaw=yaw;
 		this.background=bg;
@@ -45,18 +45,25 @@ public class Quadcopter {
 		this.lidar_dist = lidar_dist;
 	}
 	public void addLidars() {
-		this.front=new Lidar(lidar_dist,0, this);
-		this.right=new Lidar(lidar_dist,60, this);
-		this.left=new Lidar(lidar_dist,-55, this);
-		Thread t1 =new Thread(this.front);  
+		this.frontLidar=new Lidar(lidar_dist,0, this);
+		this.rightLidar=new Lidar(lidar_dist,60, this);
+		this.leftLidar=new Lidar(lidar_dist,-55, this);
+		Thread t1 =new Thread(this.frontLidar);  
 		t1.start(); 
-		Thread t2 =new Thread(this.right);  
+		Thread t2 =new Thread(this.rightLidar);  
 		t2.start(); 
-		Thread t3 =new Thread(this.left);  
+		Thread t3 =new Thread(this.leftLidar);  
 		t3.start(); 
 	}
 	
-	
+	public void navigationAlgorithm() {
+		double rightDist = rightLidar.getCurrentDist();
+		double leftDist = leftLidar.getCurrentDist();
+		double frontDist = frontLidar.getCurrentDist();
+		
+		
+		
+	}
 	public void start()
 	{
 		computeWay();

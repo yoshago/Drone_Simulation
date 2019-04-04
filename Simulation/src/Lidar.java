@@ -22,7 +22,7 @@ public class Lidar implements Runnable{
 		while(true) {
 			currentDist = rayShoot(father.getPosition(),father.getBackground());
 			try {
-				TimeUnit.MILLISECONDS.sleep(4);
+				Thread.sleep(4);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -54,6 +54,11 @@ public class Lidar implements Runnable{
 		if(isWallAtTheEndOfTheRay) gui.addPoint(finalCoor.x, finalCoor.y, 4);
 		return finalCoor.distance(start)/20;
 
+	}
+	
+
+	public double getCurrentDist() {
+		return currentDist;
 	}
 
 	private boolean checkCoordinate(Coordinate co, RoomMap map) {
