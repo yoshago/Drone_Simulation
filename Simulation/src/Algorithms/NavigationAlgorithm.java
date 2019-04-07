@@ -12,11 +12,9 @@ import Objects.Step.stepType;
 public class NavigationAlgorithm implements Runnable{
 	
 	protected GUI gui;
-	protected Queue<Step> stepsQueue;
 	
 	public NavigationAlgorithm() {
 		gui = new GUI();
-		stepsQueue = new LinkedList<Step>() ;
 	}
 	public void navigate() {
 		
@@ -24,17 +22,7 @@ public class NavigationAlgorithm implements Runnable{
 	public void run() {
 		navigate();
 	}
-	public void nextStep() {
-		if (!stepsQueue.isEmpty()) {
-			Step next = stepsQueue.poll();
-			if(next.type==stepType.DRIVE) {
-				gui.drive(true,(int)next.distance*20);
-			}
-			else {
-				gui.turn(next.angle);
-			}
-		}
-	}
+	
 	
 
 }

@@ -30,18 +30,22 @@ public class ManualControlGUI extends GUI implements KeyListener{
 		int key = e.getKeyCode();
 
 		if (key == KeyEvent.VK_LEFT) {
+			numOfLinesAndPoints+=5;
 			turn(5);
 		}
 
 		if (key == KeyEvent.VK_RIGHT) {
+			numOfLinesAndPoints+=5;
 			turn(-5);
 		}
 
 		if (key == KeyEvent.VK_UP) {
+			numOfLinesAndPoints+=5;
 			drive(true, 5);
 		}
 
 		if (key == KeyEvent.VK_DOWN) {
+			numOfLinesAndPoints+=5;
 			drive(false, 5);
 		}
 		if (key == KeyEvent.VK_R) {
@@ -49,7 +53,8 @@ public class ManualControlGUI extends GUI implements KeyListener{
 			t1.run();
 		}
 		if (key == KeyEvent.VK_SPACE) {
-			quad.getAlgo().nextStep();
+			numOfLinesAndPoints++;
+			repaint();
 		}
 
 	}

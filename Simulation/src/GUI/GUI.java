@@ -6,11 +6,13 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
@@ -42,14 +44,14 @@ public class GUI extends JComponent{
 	}
 
 
-	protected final HashSet<Line> lines = new HashSet<Line>();
-	protected final HashSet<Point> points = new HashSet<Point>();
+	protected final ArrayList<Line> lines = new ArrayList<Line>();
+	protected final ArrayList<Point> points = new ArrayList<Point>();
+	protected int numOfLinesAndPoints=0;
 	protected quadPoint quadPosition;
 	protected Quadcopter quad; 
 	protected boolean gameOver = false;
 	protected double time=0;
 	protected NavigationAlgorithm algo;
-	protected Timer timer;
 
 	public GUI() {
 		quadPosition = new quadPoint(60,60,5,Color.yellow);
@@ -62,7 +64,7 @@ public class GUI extends JComponent{
 	}
 
 	public void turn(int angle) {
-		quad.setAngle(quad.getAngle()+angle);
+		quad.setAngle((quad.getAngle()+angle)%360);
 
 
 	}
@@ -75,7 +77,7 @@ public class GUI extends JComponent{
 		if(quad.isLegalPosition(position)) {
 			setQuadPosition(position);
 			quad.setPosition(position);
-			time+=2*(Math.sqrt(5));//compute and add the time of each drive 
+			time+=2*(Math.sqrt(distance/20.0));//compute and add the time of each drive 
 		}
 		else {
 			gameOver();
@@ -83,7 +85,7 @@ public class GUI extends JComponent{
 
 	}
 
-	
+
 
 
 
@@ -92,7 +94,7 @@ public class GUI extends JComponent{
 		quadPosition = null;
 		lines.clear();
 		points.clear();
-		
+
 		repaint();
 
 	}
@@ -110,18 +112,20 @@ public class GUI extends JComponent{
 
 	synchronized public void addPoint(int x, int y, int radius, Color color) {
 		Point addingPoint = new Point(x, y, radius, color);
-		boolean didAddPoint = points.add(addingPoint);
-		if (didAddPoint) 
-			if(points.size() ==5) {
-				Iterator<Point> it = points.iterator();
-				while(it.hasNext()) {
-					Point p = (Point) it.next();
-					System.out.println("hi point "+ p.x + " " + p.y);
+		if(!points.contains(addingPoint)) {
+			boolean didAddPoint = points.add(addingPoint);
+			if (didAddPoint) 
+				if(points.size() ==5) {
+					Iterator<Point> it = points.iterator();
+					while(it.hasNext()) {
+						Point p = (Point) it.next();
+						System.out.println("hi point "+ p.x + " " + p.y);
+					}
 				}
-			}
 
 
-		repaint();
+			repaint();
+		}
 	}
 
 	synchronized public void addLine(int x1, int x2, int x3, int x4) {
@@ -130,9 +134,11 @@ public class GUI extends JComponent{
 
 	synchronized public void addLine(int x1, int x2, int x3, int x4, Color color) {
 		Line addingLine = new Line(x1,x2,x3,x4, color);
-		boolean didAddline = lines.add(addingLine); 
-		//		if(didAddline) System.out.println("hi line");
-		repaint();
+		if (!lines.contains(addingLine)) {
+			boolean didAddline = lines.add(addingLine); 
+			//		if(didAddline) System.out.println("hi line");
+			repaint();
+		}
 	}
 
 	public void clearLines() {
@@ -143,12 +149,14 @@ public class GUI extends JComponent{
 	@Override
 	synchronized protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for (Line line : lines) {
+		for (int i=0;i < numOfLinesAndPoints&&i<lines.size();i++) {
+			Line line = lines.get(i);
 			g.setColor(line.color);
 			g.drawLine(line.x1, line.y1, line.x2, line.y2);
 
 		}
-		for (Point point : points) {
+		for (int i=0;i < numOfLinesAndPoints&&i<points.size();i++) {
+			Point point = points.get(i);
 			g.setColor(point.color);
 			g.drawOval(point.x-point.radius/2, point.y-point.radius/2, point.radius, point.radius);
 			g.fillOval(point.x-point.radius/2, point.y-point.radius/2 , point.radius, point.radius); 
@@ -179,6 +187,9 @@ public class GUI extends JComponent{
 
 	public Quadcopter getQuad() {
 		return quad;
+	}
+	public double getTime() {
+		return time;
 	}
 
 
