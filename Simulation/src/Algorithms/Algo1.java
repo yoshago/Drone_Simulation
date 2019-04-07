@@ -59,16 +59,42 @@ public class Algo1 extends NavigationAlgorithm{
 		return map;
 	}
 	public void navigate() {
-		int longestWay;
-		while(gui.getTime()<=200) {
-			TreeMap<Double, ArrayList<Integer>> map = rotate();
-			System.out.println("this " + map.lastKey());
-			longestWay = getLongest(map);
-			System.out.println(gui.getTime());
-			if(map.lastKey()>=2) {
-				gui.turn(longestWay-gui.getQuad().getAngle());
-				gui.drive(true, 30);
+		int longestWay=0;
+		double longestDistance =0;
+		boolean rotate = true; 
+		while(gui.getTime()<=400) {
+			double frontDist = gui.getQuad().getFrontLidar().getCurrentDist();
+			double rightDist = gui.getQuad().getRightLidar().getCurrentDist();
+			double leftDist = gui.getQuad().getLeftLidar().getCurrentDist();
+			Tuple<Integer,Double> tup = getLongestWayAndDistance(frontDist, rightDist, leftDist);
+			longestDistance = tup.y;
+			longestWay = tup.x;
+			if(rotate) {
+				TreeMap<Double, ArrayList<Integer>> map = rotate();
+				longestDistance = map.lastKey();
+				System.out.println("this " + map.lastKey());
+				longestWay = getLongest(map);
+				rotate=false;
 			}
+			System.out.println(gui.getTime());
+			if(longestDistance>=1.5) {
+				System.out.println(longestDistance);
+				gui.turn(longestWay-gui.getQuad().getAngle());
+				gui.drive(true, 20);
+				try {
+					Thread.sleep(8);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			else {
+//				gui.drive(false, 6);
+				rotate = true;
+			}
+			
+			
 
 		}
 
@@ -76,8 +102,24 @@ public class Algo1 extends NavigationAlgorithm{
 
 	}
 
+	private Tuple<Integer,Double> getLongestWayAndDistance(double frontDist, double rightDist, double leftDist) {
+		if(frontDist>=rightDist&&frontDist>=leftDist) return new Tuple<Integer, Double>(gui.getQuad().getAngle(),frontDist);
+		else if(rightDist>=leftDist) return new Tuple<Integer, Double>(gui.getQuad().getAngle()+60,rightDist);
+		return new Tuple<Integer, Double>(gui.getQuad().getAngle()-55, leftDist);
+	}
+
+	
+
 	private int getLongest(TreeMap<Double, ArrayList<Integer>> map) {	 
 		return map.get(map.lastKey()).get(0);
 	}
+	public class Tuple<X, Y> { 
+		  public final X x; 
+		  public final Y y; 
+		  public Tuple(X x, Y y) { 
+		    this.x = x; 
+		    this.y = y; 
+		  } 
+		} 
 
 }

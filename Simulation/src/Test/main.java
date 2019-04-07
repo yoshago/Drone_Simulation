@@ -26,7 +26,7 @@ public class main {
 	public static void main(String[] args) {
 		int lidarDistance = 3;
 		Coordinate start = new Coordinate(60,60);
-		File pngFile = new File("room.png");
+		File pngFile = new File("2.png");
 		RoomMap backgroundMap = new RoomMap(pngFile);
 		Quadcopter quad = new Quadcopter(backgroundMap, lidarDistance, start);
 		

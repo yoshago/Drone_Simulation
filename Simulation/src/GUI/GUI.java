@@ -92,8 +92,8 @@ public class GUI extends JComponent{
 	private void gameOver() {
 		gameOver = true;
 		quadPosition = null;
-		lines.clear();
-		points.clear();
+//		lines.clear();
+//		points.clear();
 
 		repaint();
 
@@ -155,7 +155,7 @@ public class GUI extends JComponent{
 			g.drawLine(line.x1, line.y1, line.x2, line.y2);
 
 		}
-		for (int i=0;i < numOfLinesAndPoints&&i<points.size();i++) {
+		for (int i=0;i < numOfLinesAndPoints/3&&i<points.size();i++) {
 			Point point = points.get(i);
 			g.setColor(point.color);
 			g.drawOval(point.x-point.radius/2, point.y-point.radius/2, point.radius, point.radius);
