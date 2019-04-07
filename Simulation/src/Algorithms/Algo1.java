@@ -10,14 +10,14 @@ import Objects.Step;
 public class Algo1 extends NavigationAlgorithm{
 
 	public Algo1(GUI gui) {
-		this.gui = gui;
+		super(gui);
 	}
 
 	public HashMap<Double, List<Integer>> rotate()
 	{
 		Quadcopter quad = gui.getQuad();
 		HashMap<Double, List<Integer>> map = new HashMap<Double, List<Integer>>();
-		for(int i=0 ; i<60 ; i++)
+		for(int i = 0; i < 60; i++)
 		{
 			this.stepsQueue.add(new Step(6));
 			try {
@@ -54,12 +54,12 @@ public class Algo1 extends NavigationAlgorithm{
 		}
 		return map;
 	}
+	
+	@Override
 	public void navigate() {
 		rotate();
 		this.stepsQueue.add(new Step(5.0));
 		rotate();
-		
-		
 	}
 
 }
