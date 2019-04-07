@@ -1,7 +1,8 @@
+package Objects;
 
 public class Coordinate implements Comparable<Coordinate>{
-	int x, y;
-	Coordinate(int x, int y){
+	public int x, y;
+	public Coordinate(int x, int y){
 		this.x =x;
 		this.y =y;
 	}

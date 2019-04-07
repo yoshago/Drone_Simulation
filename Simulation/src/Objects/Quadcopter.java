@@ -1,9 +1,14 @@
+package Objects;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import Algorithms.NavigationAlgorithm;
+import GUI.GUI;
+import Sensors.Lidar;
 
 public class Quadcopter {
 	private Coordinate position;
@@ -17,6 +22,7 @@ public class Quadcopter {
 	private int angle;
 	private int lidar_dist;
 	private RoomMap background;
+	private NavigationAlgorithm algo;
 	
 	
 	
@@ -97,6 +103,14 @@ public class Quadcopter {
 
 	public Lidar getBackLidar() {
 		return backLidar;
+	}
+	public NavigationAlgorithm getAlgo() {
+		return algo;
+	}
+	
+
+	public void setAlgo(NavigationAlgorithm algo) {
+		this.algo = algo;
 	}
 
 	public boolean isLegalPosition(Coordinate position) {

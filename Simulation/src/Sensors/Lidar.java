@@ -1,7 +1,13 @@
+package Sensors;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.JComponent;
+
+import GUI.GUI;
+import Objects.Coordinate;
+import Objects.Quadcopter;
+import Objects.RoomMap;
 
 public class Lidar implements Runnable{
 	private int offset_angle;

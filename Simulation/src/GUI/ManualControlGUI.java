@@ -1,3 +1,4 @@
+package GUI;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -7,6 +8,8 @@ import java.util.LinkedList;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
+import Objects.Quadcopter;
+
 
 
 public class ManualControlGUI extends GUI implements KeyListener{  
@@ -14,12 +17,13 @@ public class ManualControlGUI extends GUI implements KeyListener{
 
 
 	
-
-	ManualControlGUI(Quadcopter quad){
+	public ManualControlGUI(Quadcopter quad){
 		this.quad = quad;
 		quad.setGui(this);
 		quad.addLidars();
 		quadPosition = new quadPoint(quad.getPosition().x,quad.getPosition().y,5,Color.yellow);
+		
+		
 	}
 	public void keyPressed(KeyEvent e) {
 		System.out.println("pressed");
@@ -41,7 +45,11 @@ public class ManualControlGUI extends GUI implements KeyListener{
 			drive(false, 5);
 		}
 		if (key == KeyEvent.VK_R) {
-			rotate();
+			Thread t1 = new Thread(quad.getAlgo());
+			t1.run();
+		}
+		if (key == KeyEvent.VK_SPACE) {
+			quad.getAlgo().nextStep();
 		}
 
 	}

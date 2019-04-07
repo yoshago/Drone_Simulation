@@ -1,3 +1,4 @@
+package GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,6 +17,11 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
+
+import Algorithms.NavigationAlgorithm;
+import Objects.Coordinate;
+import Objects.Quadcopter;
 
 public class GUI extends JComponent{
 
@@ -42,6 +48,8 @@ public class GUI extends JComponent{
 	protected Quadcopter quad; 
 	protected boolean gameOver = false;
 	protected double time=0;
+	protected NavigationAlgorithm algo;
+	protected Timer timer;
 
 	public GUI() {
 		quadPosition = new quadPoint(60,60,5,Color.yellow);
@@ -53,70 +61,29 @@ public class GUI extends JComponent{
 		quadPosition = new quadPoint(quad.getPosition().x,quad.getPosition().y,5,Color.yellow);
 	}
 
-	protected void turn(int angle) {
+	public void turn(int angle) {
 		quad.setAngle(quad.getAngle()+angle);
-		
+
+
 	}
-	
-	protected void drive(boolean direction, int distance) {
+
+	public void drive(boolean direction, int distance) {
 		int directionMult = -1;
 		if(direction) directionMult = 1;
+
 		Coordinate position = new Coordinate((int)(quad.getPosition().x + directionMult*distance*Math.sin(Math.toRadians(quad.getAngle()))),(int)(quad.getPosition().y + directionMult*distance*Math.cos(Math.toRadians(quad.getAngle()))));
 		if(quad.isLegalPosition(position)) {
 			setQuadPosition(position);
 			quad.setPosition(position);
-			time+=2*(Math.sqrt(distance));//compute and add the time of each drive 
+			time+=2*(Math.sqrt(5));//compute and add the time of each drive 
 		}
 		else {
 			gameOver();
 		}
+
 	}
+
 	
-	public HashMap<Double, List<Integer>> rotate()
-	{
-		HashMap<Double, List<Integer>> map = new HashMap<Double, List<Integer>>();
-		for(int i=0 ; i<60 ; i++)
-		{
-			
-			turn(6*i);
-			try {
-				Thread.sleep(14);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			double frontDist = quad.getFrontLidar().getCurrentDist();
-			double rightDist = quad.getRightLidar().getCurrentDist();
-			double leftDist = quad.getLeftLidar().getCurrentDist();
-			if(map.containsKey(frontDist)) {
-				map.get(frontDist).add(quad.getAngle());
-			}
-			else {
-				map.put(frontDist, new LinkedList<Integer>());
-				map.get(frontDist).add(quad.getAngle());
-			}
-			if(map.containsKey(rightDist)) {
-				map.get(rightDist).add(quad.getAngle()+60);
-			}
-			else {
-				map.put(rightDist, new LinkedList<Integer>());
-				map.get(rightDist).add(quad.getAngle()+60);
-			}
-			if(map.containsKey(leftDist)) {
-				map.get(leftDist).add(quad.getAngle()-55);
-			}
-			else {
-				map.put(leftDist, new LinkedList<Integer>());
-				map.get(leftDist).add(quad.getAngle()-55);
-			}
-			
-			
-			
-			
-		}
-		return map;
-	}
 
 
 
@@ -125,6 +92,7 @@ public class GUI extends JComponent{
 		quadPosition = null;
 		lines.clear();
 		points.clear();
+		
 		repaint();
 
 	}
@@ -196,11 +164,21 @@ public class GUI extends JComponent{
 			g.setFont(new Font("TimesRoman", Font.BOLD, 42)); 
 			g.drawString("GAME OVER", 60, 60);
 		}
+		g.setColor(Color.black);
+		g.drawString("Quad's direction", 30, quad.getBackground().getHeight()+20);
+		g.drawLine(quad.getBackground().getWidth()/2, quad.getBackground().getHeight()+20, (int) (quad.getBackground().getWidth()/2 + 15*Math.sin(Math.toRadians(quad.getAngle()))), (int)(quad.getBackground().getHeight()+20 + 15*Math.cos(Math.toRadians(quad.getAngle()))));
+		g.setColor(Color.red);
+		g.drawOval((int) (quad.getBackground().getWidth()/2 + 15*Math.sin(Math.toRadians(quad.getAngle())))-2, (int)(quad.getBackground().getHeight()+20 + 15*Math.cos(Math.toRadians(quad.getAngle())))-2,5,5);
+		g.fillOval((int) (quad.getBackground().getWidth()/2 + 15*Math.sin(Math.toRadians(quad.getAngle())))-2, (int)(quad.getBackground().getHeight()+20 + 15*Math.cos(Math.toRadians(quad.getAngle())))-2,5,5);
 
 
 	}
 	public void setQuad(Quadcopter quad) {
 		this.quad = quad;
+	}
+
+	public Quadcopter getQuad() {
+		return quad;
 	}
 
 
