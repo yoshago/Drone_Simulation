@@ -58,7 +58,7 @@ public class GUI extends JComponent{
 	public GUI(Quadcopter quad) {
 		this.quad = quad;
 		quad.setGui(this);
-		quadPosition = new quadPoint(quad.getPosition().x,quad.getPosition().y,5,Color.yellow);
+		quadPosition = new quadPoint(quad.getPosition().getX(), quad.getPosition().getY(),5,Color.yellow);
 	}
 
 	public void turn(int angle) {
@@ -71,7 +71,7 @@ public class GUI extends JComponent{
 		int directionMult = -1;
 		if(direction) directionMult = 1;
 
-		Coordinate position = new Coordinate((int)(quad.getPosition().x + directionMult*distance*Math.sin(Math.toRadians(quad.getAngle()))),(int)(quad.getPosition().y + directionMult*distance*Math.cos(Math.toRadians(quad.getAngle()))));
+		Coordinate position = new Coordinate((int)(quad.getPosition().getX() + directionMult*distance*Math.sin(Math.toRadians(quad.getAngle()))),(int)(quad.getPosition().getY() + directionMult*distance*Math.cos(Math.toRadians(quad.getAngle()))));
 		if(quad.isLegalPosition(position)) {
 			setQuadPosition(position);
 			quad.setPosition(position);
@@ -82,10 +82,6 @@ public class GUI extends JComponent{
 		}
 
 	}
-
-	
-
-
 
 	private void gameOver() {
 		gameOver = true;
@@ -98,9 +94,9 @@ public class GUI extends JComponent{
 	}
 
 	protected void setQuadPosition(Coordinate co) {	
-		addLine(quadPosition.x,quadPosition.y,co.x, co.y, Color.blue);
-		quadPosition.x = co.x;
-		quadPosition.y = co.y;
+		addLine(quadPosition.x, quadPosition.y, co.getX(), co.getY(), Color.blue);
+		quadPosition.x = co.getX();
+		quadPosition.y = co.getY();
 		repaint();
 	}
 

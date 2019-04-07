@@ -114,7 +114,9 @@ public class Quadcopter {
 	}
 
 	public boolean isLegalPosition(Coordinate position) {
-		if(background.checkCoordinate(position) == 1) return true;
+		if(background.getWidth() > position.getX()
+				&& background.getHeight() > position.getY()
+				&& background.checkCoordinate(position) == 1) return true;
 		return false;
 	}
 	

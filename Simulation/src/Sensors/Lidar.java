@@ -40,24 +40,24 @@ public class Lidar implements Runnable{
 		 
 		int sumAng=(father.getAngle()+this.offset_angle)%360;
 		double finalAng = Math.toRadians(sumAng);
-		Coordinate finalCoor = new Coordinate(start.x,start.y);
+		Coordinate finalCoor = new Coordinate(start.getX(), start.getY());
 		int x,y;
 		int i=1;
 		boolean isWallAtTheEndOfTheRay = true;
 		while(checkCoordinate(finalCoor, backgroundMap)) 
 		{
-			x = finalCoor.x;
-			y = finalCoor.y;
+			x = finalCoor.getX();
+			y = finalCoor.getY();
 			if (finalCoor.distance(start)>=20*dist) {
 				isWallAtTheEndOfTheRay = false;
 				break;
 			}
-			finalCoor = new Coordinate((int) (start.x + i*Math.sin(finalAng)),(int) (start.y + i*Math.cos(finalAng)));
+			finalCoor = new Coordinate((int) (start.getX() + i*Math.sin(finalAng)),(int) (start.getY() + i*Math.cos(finalAng)));
 			i+=1;
 		}
 
-		gui.addLine(start.x, start.y, finalCoor.x, finalCoor.y);
-		if(isWallAtTheEndOfTheRay) gui.addPoint(finalCoor.x, finalCoor.y, 4);
+		gui.addLine(start.getX(), start.getY(), finalCoor.getX(), finalCoor.getY());
+		if(isWallAtTheEndOfTheRay) gui.addPoint(finalCoor.getX(), finalCoor.getY(), 4);
 		return finalCoor.distance(start)/20;
 
 	}
@@ -68,7 +68,7 @@ public class Lidar implements Runnable{
 	}
 
 	private boolean checkCoordinate(Coordinate co, RoomMap map) {
-		if (map.getMapMatrix()[co.x][co.y] == 1) return true;
+		if (map.getMapMatrix()[co.getX()][co.getY()] == 1) return true;
 		return false;
 	}
 	public int getOffset_angle() {

@@ -21,7 +21,7 @@ public class ManualControlGUI extends GUI implements KeyListener{
 		this.quad = quad;
 		quad.setGui(this);
 		quad.addLidars();
-		quadPosition = new quadPoint(quad.getPosition().x,quad.getPosition().y,5,Color.yellow);
+		quadPosition = new quadPoint(quad.getPosition().getX(), quad.getPosition().getY(), 5, Color.yellow);
 		
 		
 	}

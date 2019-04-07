@@ -1,7 +1,7 @@
 package Objects;
 
 public class Coordinate implements Comparable<Coordinate>{
-	public int x, y;
+	private int x, y;
 	public Coordinate(int x, int y){
 		this.x =x;
 		this.y =y;
@@ -22,6 +22,14 @@ public class Coordinate implements Comparable<Coordinate>{
 	public boolean isWithinRadius(double pointRadius, Coordinate inCircle) {
 		if (this.distance(inCircle)<=20*pointRadius) return true;
 		return false;
+	}
+	
+	public int getX() {
+		return this.x;
+	}
+	
+	public int getY() {
+		return this.y;
 	}
 	
 	@Override

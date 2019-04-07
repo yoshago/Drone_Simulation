@@ -46,7 +46,7 @@ public class RoomMap {
 		}
 	}
 	public int checkCoordinate (Coordinate co) {
-		return  (int) mapMatrix[co.x][co.y];
+		return  (int) mapMatrix[co.getX()][co.getY()];
 	}
 	public void exportMap(String filename) {
 		try {
