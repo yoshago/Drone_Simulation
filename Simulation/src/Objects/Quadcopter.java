@@ -16,16 +16,19 @@ public class Quadcopter {
 	private Lidar rightLidar;
 	private Lidar leftLidar;
 	private Lidar backLidar;
-//	private OF of;
-//	private Yaw yaw;
+	private int rightAngle;
+	private int leftAngle;
+	private double lidarError = 0.05;
+	//	private OF of;
+	//	private Yaw yaw;
 	private GUI gui;
 	private int angle;
 	private int lidar_dist;
 	private RoomMap background;
 	private NavigationAlgorithm algo;
-	
-	
-	
+
+
+
 	public Quadcopter(RoomMap bg, int lidar_dist,Coordinate start_position, GUI gui)
 	{
 		this.angle = 90;
@@ -34,19 +37,21 @@ public class Quadcopter {
 		this.gui = gui;
 		addLidars();
 	}
-	
-	public Quadcopter(RoomMap bg, int lidar_dist,Coordinate start_position)
+
+	public Quadcopter(RoomMap bg, int lidar_dist,Coordinate start_position, int rightAngle, int leftAngle)
 	{
 		this.angle = 90;
 		this.position = start_position;
 		this.background=bg;
 		this.lidar_dist = lidar_dist;
+		this. rightAngle = rightAngle;
+		this.leftAngle = leftAngle;
 	}
-	
+
 	public void addLidars() {
-		this.frontLidar=new Lidar(lidar_dist,0, this);
-		this.rightLidar=new Lidar(lidar_dist,60, this);
-		this.leftLidar=new Lidar(lidar_dist,-55, this);
+		this.frontLidar=new Lidar(lidar_dist,0, this,lidarError);
+		this.rightLidar=new Lidar(lidar_dist,rightAngle, this, lidarError);
+		this.leftLidar=new Lidar(lidar_dist,leftAngle, this, lidarError);
 		Thread t1 =new Thread(this.frontLidar);  
 		t1.start(); 
 		Thread t2 =new Thread(this.rightLidar);  
@@ -54,19 +59,8 @@ public class Quadcopter {
 		Thread t3 =new Thread(this.leftLidar);  
 		t3.start(); 
 	}
-	
-	public void navigationAlgorithm() {
-		
-//		HashMap<Integer, Double> anglesAndDistances = rotate();
-		double rightDist = rightLidar.getCurrentDist();
-		double leftDist = leftLidar.getCurrentDist();
-		double frontDist = frontLidar.getCurrentDist();
-		
-		
-		
-	}
-		
-	
+
+
 	public Coordinate getPosition() {
 		return position;
 	}
@@ -88,7 +82,7 @@ public class Quadcopter {
 	public void setGui(GUI gui) {
 		this.gui = gui;
 	}
-	
+
 	public Lidar getFrontLidar() {
 		return frontLidar;
 	}
@@ -107,7 +101,7 @@ public class Quadcopter {
 	public NavigationAlgorithm getAlgo() {
 		return algo;
 	}
-	
+
 
 	public void setAlgo(NavigationAlgorithm algo) {
 		this.algo = algo;
@@ -117,7 +111,16 @@ public class Quadcopter {
 		if(background.checkCoordinate(position) == 1) return true;
 		return false;
 	}
-	
-	
+
+	public int getRightAngle() {
+		return rightAngle;
+	}
+
+	public int getLeftAngle() {
+		return leftAngle;
+	}
+
+
+
 
 }

@@ -16,11 +16,13 @@ public class Lidar implements Runnable{
 	private Quadcopter father;
 	private double currentDist;
 	private GUI gui; 
-	public Lidar(int dist,  int offset_angle, Quadcopter father) {
+	private double gaussianError;
+	public Lidar(int dist,  int offset_angle, Quadcopter father,double error) {
 		this.dist = dist;
 		this.offset_angle = offset_angle;
 		this.father = father;
 		this.gui = father.getGui();
+		gaussianError = error;
 
 	}
 	
@@ -58,7 +60,10 @@ public class Lidar implements Runnable{
 
 		gui.addLine(start.x, start.y, finalCoor.x, finalCoor.y);
 		if(isWallAtTheEndOfTheRay) gui.addPoint(finalCoor.x, finalCoor.y, 4);
-		return finalCoor.distance(start)/20;
+		
+		java.util.Random r = new java.util.Random();
+		double retVal = r.nextGaussian() * Math.sqrt(gaussianError) + finalCoor.distance(start)/20;
+		return retVal;
 
 	}
 	

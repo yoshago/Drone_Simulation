@@ -20,7 +20,7 @@ public class NavigationAlgorithm implements Runnable{
 		
 	}
 	public void run() {
-		navigate();
+		navigate();	
 	}
 	
 	

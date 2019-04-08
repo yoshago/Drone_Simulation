@@ -21,9 +21,9 @@ public class Algo1 extends NavigationAlgorithm{
 	{
 		Quadcopter quad = gui.getQuad();
 		TreeMap<Double, ArrayList<Integer>> map = new TreeMap<Double, ArrayList<Integer>>();
-		for(int i=0 ; i<60 ; i++)
+		for(int i=0 ; i<36 ; i++)
 		{
-			gui.turn(6);
+			gui.turn(10);
 
 			try {
 				Thread.sleep(5);
@@ -42,18 +42,18 @@ public class Algo1 extends NavigationAlgorithm{
 				map.get(frontDist).add(quad.getAngle());
 			}
 			if(map.containsKey(rightDist)) {
-				map.get(rightDist).add(quad.getAngle()+60);
+				map.get(rightDist).add(quad.getAngle()+quad.getRightAngle());
 			}
 			else {
 				map.put(rightDist, new ArrayList<Integer>());
-				map.get(rightDist).add(quad.getAngle()+60);
+				map.get(rightDist).add(quad.getAngle()+quad.getRightAngle());
 			}
 			if(map.containsKey(leftDist)) {
-				map.get(leftDist).add(quad.getAngle()-55);
+				map.get(leftDist).add(quad.getAngle()+quad.getLeftAngle());
 			}
 			else {
 				map.put(leftDist, new ArrayList<Integer>());
-				map.get(leftDist).add(quad.getAngle()-55);
+				map.get(leftDist).add(quad.getAngle()+quad.getLeftAngle());
 			}
 		}
 		return map;
@@ -69,6 +69,8 @@ public class Algo1 extends NavigationAlgorithm{
 			Tuple<Integer,Double> tup = getLongestWayAndDistance(frontDist, rightDist, leftDist);
 			longestDistance = tup.y;
 			longestWay = tup.x;
+			
+		
 			if(rotate) {
 				TreeMap<Double, ArrayList<Integer>> map = rotate();
 				longestDistance = map.lastKey();
@@ -88,38 +90,40 @@ public class Algo1 extends NavigationAlgorithm{
 					e.printStackTrace();
 				}
 				
+				
+
 			}
 			else {
-//				gui.drive(false, 6);
+				//				gui.drive(false, 6);
 				rotate = true;
 			}
-			
-			
-
 		}
-
-
-
 	}
 
 	private Tuple<Integer,Double> getLongestWayAndDistance(double frontDist, double rightDist, double leftDist) {
 		if(frontDist>=rightDist&&frontDist>=leftDist) return new Tuple<Integer, Double>(gui.getQuad().getAngle(),frontDist);
-		else if(rightDist>=leftDist) return new Tuple<Integer, Double>(gui.getQuad().getAngle()+60,rightDist);
-		return new Tuple<Integer, Double>(gui.getQuad().getAngle()-55, leftDist);
+		else if(rightDist>=leftDist) return new Tuple<Integer, Double>(gui.getQuad().getAngle()+gui.getQuad().getRightAngle(),rightDist);
+		return new Tuple<Integer, Double>(gui.getQuad().getAngle()+gui.getQuad().getLeftAngle(), leftDist);
 	}
 
+
+
+	private int getLongest(TreeMap<Double, ArrayList<Integer>> map) {	
+		int angle = map.get(map.lastKey()).get((int)Math.random()*(map.size()-1));
+		int i=0;
+		while(angle<gui.getQuad().getAngle()+90&&angle>gui.getQuad().getAngle()-90&&i<5) {
+			angle = map.get(map.lastKey()).get((int)Math.random()*(map.size()-1));
+			i++;
+		}
+		return angle;
+	}
 	
-
-	private int getLongest(TreeMap<Double, ArrayList<Integer>> map) {	 
-		return map.get(map.lastKey()).get(0);
-	}
 	public class Tuple<X, Y> { 
-		  public final X x; 
-		  public final Y y; 
-		  public Tuple(X x, Y y) { 
-		    this.x = x; 
-		    this.y = y; 
-		  } 
+		public final X x; 
+		public final Y y; 
+		public Tuple(X x, Y y) { 
+			this.x = x; 
+			this.y = y; 
 		} 
-
+	} 
 }
