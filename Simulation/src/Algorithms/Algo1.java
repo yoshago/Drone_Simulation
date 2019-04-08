@@ -111,7 +111,7 @@ public class Algo1 extends NavigationAlgorithm{
 	private int getLongest(TreeMap<Double, ArrayList<Integer>> map) {	
 		int angle = map.get(map.lastKey()).get((int)Math.random()*(map.size()-1));
 		int i=0;
-		while(angle<gui.getQuad().getAngle()+90&&angle>gui.getQuad().getAngle()-90&&i<5) {
+		while(angle<gui.getQuad().getAngle()+135&&angle>gui.getQuad().getAngle()-135&&i<5) {
 			angle = map.get(map.lastKey()).get((int)Math.random()*(map.size()-1));
 			i++;
 		}

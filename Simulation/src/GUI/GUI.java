@@ -153,6 +153,13 @@ public class GUI extends JComponent{
 			Line line = lines.get(i);
 			g.setColor(line.color);
 			g.drawLine(line.x1, line.y1, line.x2, line.y2);
+			if(i==numOfLinesAndPoints-1) {
+				if(quadPosition!=null) {
+					g.setColor(quadPosition.color);
+					g.drawOval(line.x1-quadPosition.radius/2, line.y1-quadPosition.radius/2, quadPosition.radius, quadPosition.radius);
+					g.fillOval(line.x1-quadPosition.radius/2, line.y1-quadPosition.radius/2 , quadPosition.radius, quadPosition.radius);
+				}
+			}
 
 		}
 		for (int i=0;i < numOfLinesAndPoints/3&&i<points.size();i++) {
