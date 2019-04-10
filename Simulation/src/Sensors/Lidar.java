@@ -50,7 +50,7 @@ public class Lidar implements Runnable{
 		{
 			x = finalCoor.x;
 			y = finalCoor.y;
-			if (finalCoor.distance(start)>=20*dist) {
+			if (finalCoor.distance(start)>=father.getResolution()*dist) {
 				isWallAtTheEndOfTheRay = false;
 				break;
 			}
@@ -62,7 +62,7 @@ public class Lidar implements Runnable{
 		if(isWallAtTheEndOfTheRay) gui.addPoint(finalCoor.x, finalCoor.y, 4);
 		
 		java.util.Random r = new java.util.Random();
-		double retVal = r.nextGaussian() * gaussianError + finalCoor.distance(start)/20;
+		double retVal = r.nextGaussian() * gaussianError +  finalCoor.distance(start)/(double)father.getResolution();
 		return retVal;
 
 	}

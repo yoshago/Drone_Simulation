@@ -19,8 +19,8 @@ public class Coordinate implements Comparable<Coordinate>{
 		return Math.sqrt((co.y - y) * (co.y - y) + (co.x - x) * (co.x - x));
 	}
 
-	public boolean isWithinRadius(double pointRadius, Coordinate inCircle) {
-		if (this.distance(inCircle)<=20*pointRadius) return true;
+	public boolean isWithinRadius(double pointRadius, Coordinate inCircle, int resolution) {
+		if (this.distance(inCircle)<=resolution*pointRadius) return true;
 		return false;
 	}
 	

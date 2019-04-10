@@ -10,9 +10,10 @@ public class RoomMap {
 	private File mapSource;
 	private Byte[][] mapMatrix;
 	private int width, height;
-	int pointRadius =2;
-	public RoomMap(File mapSource) {
-		super();
+	private int pointRadius =2;
+	private int resolution;
+	public RoomMap(File mapSource, int resolution) {
+		this.resolution = resolution;
 		this.mapSource = mapSource;
 		BufferedImage buffImg = null;
 		try {
@@ -62,7 +63,7 @@ public class RoomMap {
 		    		        for(int l=j-pointRadius; l<=j+pointRadius&&l<this.height&&l>=0; l++) {
 		    		            Coordinate center = new Coordinate(i,j);
 		    		            Coordinate inCircle = new Coordinate(k,l);
-		    		            if (center.isWithinRadius(pointRadius, inCircle)) {
+		    		            if (center.isWithinRadius(pointRadius, inCircle, resolution )) {
 		    		            	Color newColor = new Color(255,0,0);
 		    			            image.setRGB(k,l,newColor.getRGB());
 		    		            }

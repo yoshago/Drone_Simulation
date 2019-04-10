@@ -62,7 +62,7 @@ public class Algo1 extends NavigationAlgorithm{
 		int longestWay=0;
 		double longestDistance =0;
 		boolean rotate = true; 
-		while(gui.getTime()<=400) {
+		while(gui.getTime()<=600) {
 			double frontDist = gui.getQuad().getFrontLidar().getCurrentDist();
 			double rightDist = gui.getQuad().getRightLidar().getCurrentDist();
 			double leftDist = gui.getQuad().getLeftLidar().getCurrentDist();
@@ -82,7 +82,7 @@ public class Algo1 extends NavigationAlgorithm{
 			if(longestDistance>=1.5) {
 				System.out.println(longestDistance);
 				gui.turn(longestWay-gui.getQuad().getAngle());
-				gui.drive(true, 20);
+				gui.drive(true, 40);
 				try {
 					Thread.sleep(8);
 				} catch (InterruptedException e) {
@@ -111,7 +111,7 @@ public class Algo1 extends NavigationAlgorithm{
 	private int getLongest(TreeMap<Double, ArrayList<Integer>> map) {	
 		int angle = map.get(map.lastKey()).get((int)Math.random()*(map.size()-1));
 		int i=0;
-		while(angle<gui.getQuad().getAngle()+135&&angle>gui.getQuad().getAngle()-135&&i<5) {
+		while(angle<gui.getQuad().getAngle()+100&&angle>gui.getQuad().getAngle()-100&&i<12) {
 			angle = map.get(map.lastKey()).get((int)Math.random()*(map.size()-1));
 			i++;
 		}

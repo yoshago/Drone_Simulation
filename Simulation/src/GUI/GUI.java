@@ -77,7 +77,7 @@ public class GUI extends JComponent{
 		if(quad.isLegalPosition(position)) {
 			setQuadPosition(position);
 			quad.setPosition(position);
-			time+=2*(Math.sqrt(distance/20.0));//compute and add the time of each drive 
+			time+=2*(Math.sqrt(distance/40.0));//compute and add the time of each drive 
 		}
 		else {
 			gameOver();
@@ -92,8 +92,8 @@ public class GUI extends JComponent{
 	private void gameOver() {
 		gameOver = true;
 		quadPosition = null;
-//		lines.clear();
-//		points.clear();
+		//		lines.clear();
+		//		points.clear();
 
 		repaint();
 
@@ -162,7 +162,7 @@ public class GUI extends JComponent{
 			}
 
 		}
-		for (int i=0;i < numOfLinesAndPoints/3&&i<points.size();i++) {
+		for (int i=0;i < numOfLinesAndPoints*2/3&&i<points.size();i++) {
 			Point point = points.get(i);
 			g.setColor(point.color);
 			g.drawOval(point.x-point.radius/2, point.y-point.radius/2, point.radius, point.radius);
@@ -170,9 +170,11 @@ public class GUI extends JComponent{
 
 		}
 		if (quadPosition != null) {
-			g.setColor(quadPosition.color);
-			g.drawOval(quadPosition.x-quadPosition.radius/2, quadPosition.y-quadPosition.radius/2, quadPosition.radius, quadPosition.radius);
-			g.fillOval(quadPosition.x-quadPosition.radius/2, quadPosition.y-quadPosition.radius/2 , quadPosition.radius, quadPosition.radius);
+			if(numOfLinesAndPoints>=lines.size()||numOfLinesAndPoints==0) {
+				g.setColor(quadPosition.color);
+				g.drawOval(quadPosition.x-quadPosition.radius/2, quadPosition.y-quadPosition.radius/2, quadPosition.radius, quadPosition.radius);
+				g.fillOval(quadPosition.x-quadPosition.radius/2, quadPosition.y-quadPosition.radius/2 , quadPosition.radius, quadPosition.radius);
+			}
 		}
 		if(gameOver) {
 			g.setColor(Color.orange);

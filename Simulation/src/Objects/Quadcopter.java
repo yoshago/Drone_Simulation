@@ -18,6 +18,7 @@ public class Quadcopter {
 	private Lidar backLidar;
 	private int rightAngle;
 	private int leftAngle;
+	private int resolution;
 	private double lidarError = 0.05;
 	//	private OF of;
 	//	private Yaw yaw;
@@ -38,7 +39,7 @@ public class Quadcopter {
 		addLidars();
 	}
 
-	public Quadcopter(RoomMap bg, int lidar_dist,Coordinate start_position, int rightAngle, int leftAngle)
+	public Quadcopter(RoomMap bg, int lidar_dist,Coordinate start_position, int rightAngle, int leftAngle, int resolution)
 	{
 		this.angle = 90;
 		this.position = start_position;
@@ -46,6 +47,7 @@ public class Quadcopter {
 		this.lidar_dist = lidar_dist;
 		this. rightAngle = rightAngle;
 		this.leftAngle = leftAngle;
+		this.resolution = resolution;
 	}
 
 	public void addLidars() {
@@ -118,6 +120,11 @@ public class Quadcopter {
 
 	public int getLeftAngle() {
 		return leftAngle;
+	}
+
+	public int getResolution() {
+		// TODO Auto-generated method stub
+		return resolution;
 	}
 
 

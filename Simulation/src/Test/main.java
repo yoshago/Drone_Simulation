@@ -27,10 +27,11 @@ public class main {
 		int lidarDistance = 3;
 		int rightLidarAngle = 60;
 		int leftLidarAngle = -55;
-		Coordinate start = new Coordinate(60,60);
-		File pngFile = new File("2.png");
-		RoomMap backgroundMap = new RoomMap(pngFile);
-		Quadcopter quad = new Quadcopter(backgroundMap, lidarDistance, start, rightLidarAngle, leftLidarAngle);
+		int resolution = 40;
+		Coordinate start = new Coordinate(80,80);
+		File pngFile = new File("p14.png");
+		RoomMap backgroundMap = new RoomMap(pngFile, resolution);
+		Quadcopter quad = new Quadcopter(backgroundMap, lidarDistance, start, rightLidarAngle, leftLidarAngle,resolution);
 		
 		
 		JFrame testFrame = new JFrame();
