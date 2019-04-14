@@ -135,8 +135,8 @@ public class Quadcopter {
 	public void setAccAndVelocity(double a) {
 		this.acc=a;
 		this.velocity+=a*gui.getStepTime();
-		if(this.velocity>2) this.velocity=2.0;
-		if(this.velocity<-2) this.velocity=-2.0;
+		if(this.velocity>3) this.velocity=3.0;
+		if(this.velocity<-3) this.velocity=-3.0;
 		
 	}
 
