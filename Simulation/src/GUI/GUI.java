@@ -52,6 +52,7 @@ public class GUI extends JComponent{
 	protected boolean gameOver = false;
 	protected double time=0;
 	protected NavigationAlgorithm algo;
+	protected double stepTime=0.02;
 
 	public GUI() {
 		quadPosition = new quadPoint(60,60,5,Color.yellow);
@@ -84,7 +85,22 @@ public class GUI extends JComponent{
 		}
 
 	}
+	public void drive()
+	{
+		double driveLength=quad.getVelocity()*40*stepTime;
+		Coordinate position = new Coordinate((int)(0.5+ quad.getPosition().x + driveLength*Math.sin(Math.toRadians(quad.getAngle()))),
+								(int)(0.5+quad.getPosition().y + driveLength*Math.cos(Math.toRadians(quad.getAngle()))));
+		if(quad.isLegalPosition(position)) {
+			setQuadPosition(position);
+			quad.setPosition(position);
+		}
+		else 
+			gameOver();
+		time+=stepTime;
+		System.out.println("X:  " + position.x);
+		System.out.println("Y:  " + position.y);
 
+	}
 
 
 
@@ -199,6 +215,9 @@ public class GUI extends JComponent{
 	}
 	public double getTime() {
 		return time;
+	}
+	public double getStepTime() {
+		return this.stepTime;
 	}
 
 

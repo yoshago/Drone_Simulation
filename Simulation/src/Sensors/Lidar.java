@@ -29,12 +29,6 @@ public class Lidar implements Runnable{
 	public void run() {
 		while(true) {
 			currentDist = rayShoot(father.getPosition(),father.getBackground());
-			try {
-				Thread.sleep(4);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 	}
 	private double rayShoot(Coordinate start, RoomMap backgroundMap)
@@ -69,6 +63,7 @@ public class Lidar implements Runnable{
 	
 
 	public double getCurrentDist() {
+		currentDist = rayShoot(father.getPosition(),father.getBackground());
 		return currentDist;
 	}
 

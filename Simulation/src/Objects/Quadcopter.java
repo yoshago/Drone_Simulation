@@ -27,6 +27,8 @@ public class Quadcopter {
 	private int lidar_dist;
 	private RoomMap background;
 	private NavigationAlgorithm algo;
+	double velocity;
+	double acc;
 
 
 
@@ -54,12 +56,12 @@ public class Quadcopter {
 		this.frontLidar=new Lidar(lidar_dist,0, this,lidarError);
 		this.rightLidar=new Lidar(lidar_dist,rightAngle, this, lidarError);
 		this.leftLidar=new Lidar(lidar_dist,leftAngle, this, lidarError);
-		Thread t1 =new Thread(this.frontLidar);  
+		/**Thread t1 =new Thread(this.frontLidar);  
 		t1.start(); 
 		Thread t2 =new Thread(this.rightLidar);  
 		t2.start(); 
 		Thread t3 =new Thread(this.leftLidar);  
-		t3.start(); 
+		t3.start(); **/
 	}
 
 
@@ -126,7 +128,26 @@ public class Quadcopter {
 		// TODO Auto-generated method stub
 		return resolution;
 	}
+	public double getVelocity() {
+		return velocity;
+	}
 
+	public void setAccAndVelocity(double a) {
+		this.acc=a;
+		this.velocity+=a*gui.getStepTime();
+		if(this.velocity>2) this.velocity=2.0;
+		if(this.velocity<-2) this.velocity=-2.0;
+		
+	}
+
+	public void turnRight() {
+		this.angle+=180*gui.getStepTime();
+		
+	}
+
+	public void turnLeft() {
+		this.angle-=180*gui.getStepTime();		
+	}
 
 
 
