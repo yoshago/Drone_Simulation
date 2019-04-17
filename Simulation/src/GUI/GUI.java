@@ -30,12 +30,12 @@ public class GUI extends JComponent{
 
 
 	public static class quadPoint{
-		int x; 
-		int y;
+		double x; 
+		double y;
 		final int radius;
 		final Color color;
 
-		public quadPoint(int x, int y, int radius, Color color) {
+		public quadPoint(double x, double y, int radius, Color color) {
 			this.x = x;
 			this.y = y;
 			this.radius = radius;
@@ -52,16 +52,19 @@ public class GUI extends JComponent{
 	protected boolean gameOver = false;
 	protected double time=0;
 	protected NavigationAlgorithm algo;
-	protected double stepTime=0.02;
-
+	protected double stepTime=1.0/33.0;
+	public int fail=0;
+	private quadPoint realquadposition;
 	public GUI() {
 		quadPosition = new quadPoint(60,60,5,Color.yellow);
+		realquadposition=new quadPoint(60,60,5,Color.yellow);
 	}
 
 	public GUI(Quadcopter quad) {
 		this.quad = quad;
 		quad.setGui(this);
 		quadPosition = new quadPoint(quad.getPosition().x,quad.getPosition().y,5,Color.yellow);
+		realquadposition=new quadPoint(quad.getPosition().x,quad.getPosition().y,5,Color.yellow);
 	}
 
 	public void turn(int angle) {
@@ -74,7 +77,7 @@ public class GUI extends JComponent{
 		int directionMult = -1;
 		if(direction) directionMult = 1;
 
-		Coordinate position = new Coordinate((int)(quad.getPosition().x + directionMult*distance*Math.sin(Math.toRadians(quad.getAngle()))),(int)(quad.getPosition().y + directionMult*distance*Math.cos(Math.toRadians(quad.getAngle()))));
+		Coordinate position = new Coordinate((int)(0.5+quad.getPosition().x + directionMult*distance*Math.sin(Math.toRadians(quad.getAngle()))),(int)(0.5+quad.getPosition().y + directionMult*distance*Math.cos(Math.toRadians(quad.getAngle()))));
 		if(quad.isLegalPosition(position)) {
 			setQuadPosition(position);
 			quad.setPosition(position);
@@ -88,8 +91,9 @@ public class GUI extends JComponent{
 	public void drive()
 	{
 		double driveLength=quad.getVelocity()*40*stepTime;
-		Coordinate position = new Coordinate((int)(0.5+ quad.getPosition().x + driveLength*Math.sin(Math.toRadians(quad.getAngle()))),
-								(int)(0.5+quad.getPosition().y + driveLength*Math.cos(Math.toRadians(quad.getAngle()))));
+		realquadposition=new quadPoint(realquadposition.x+driveLength*Math.sin(Math.toRadians(quad.getAngle())),realquadposition.y+driveLength*Math.cos(Math.toRadians(quad.getAngle())),5,Color.yellow);
+		Coordinate position = new Coordinate((int)(0.5+realquadposition.x),
+								(int)(0.5+realquadposition.y));
 		if(quad.isLegalPosition(position)) {
 			setQuadPosition(position);
 			quad.setPosition(position);
@@ -97,8 +101,8 @@ public class GUI extends JComponent{
 		else 
 			gameOver();
 		time+=stepTime;
-		System.out.println("X:  " + position.x);
-		System.out.println("Y:  " + position.y);
+		//System.out.println("X:  " + position.x);
+		//System.out.println("Y:  " + position.y);
 
 	}
 
@@ -106,8 +110,9 @@ public class GUI extends JComponent{
 
 
 	private void gameOver() {
-		gameOver = true;
-		quadPosition = null;
+		//gameOver = true;
+//		quadPosition = null;
+		this.fail++;
 		//		lines.clear();
 		//		points.clear();
 
@@ -116,7 +121,7 @@ public class GUI extends JComponent{
 	}
 
 	protected void setQuadPosition(Coordinate co) {	
-		addLine(quadPosition.x,quadPosition.y,co.x, co.y, Color.blue);
+		addLine((int)quadPosition.x,(int)quadPosition.y,co.x, co.y, Color.blue);
 		quadPosition.x = co.x;
 		quadPosition.y = co.y;
 		repaint();
@@ -188,8 +193,8 @@ public class GUI extends JComponent{
 		if (quadPosition != null) {
 			if(numOfLinesAndPoints>=lines.size()||numOfLinesAndPoints==0) {
 				g.setColor(quadPosition.color);
-				g.drawOval(quadPosition.x-quadPosition.radius/2, quadPosition.y-quadPosition.radius/2, quadPosition.radius, quadPosition.radius);
-				g.fillOval(quadPosition.x-quadPosition.radius/2, quadPosition.y-quadPosition.radius/2 , quadPosition.radius, quadPosition.radius);
+				g.drawOval((int)quadPosition.x-quadPosition.radius/2, (int)quadPosition.y-quadPosition.radius/2, quadPosition.radius, quadPosition.radius);
+				g.fillOval((int)quadPosition.x-quadPosition.radius/2, (int)quadPosition.y-quadPosition.radius/2 , quadPosition.radius, quadPosition.radius);
 			}
 		}
 		if(gameOver) {
