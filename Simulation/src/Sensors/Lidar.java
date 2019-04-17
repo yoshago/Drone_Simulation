@@ -34,7 +34,7 @@ public class Lidar implements Runnable{
 	private double rayShoot(Coordinate start, RoomMap backgroundMap)
 	{
 		 
-		int sumAng=(father.getAngle()+this.offset_angle)%360;
+		double sumAng=(father.getAngle()+this.offset_angle)%360;
 		double finalAng = Math.toRadians(sumAng);
 		Coordinate finalCoor = new Coordinate(start.x,start.y);
 		int x,y;
@@ -54,9 +54,9 @@ public class Lidar implements Runnable{
 
 		gui.addLine(start.x, start.y, finalCoor.x, finalCoor.y);
 		if(isWallAtTheEndOfTheRay) gui.addPoint(finalCoor.x, finalCoor.y, 4);
-		
-		java.util.Random r = new java.util.Random();
-		double retVal = r.nextGaussian() * gaussianError +  finalCoor.distance(start)/(double)father.getResolution();
+		double retVal = finalCoor.distance(start)/(double)father.getResolution();
+//		java.util.Random r = new java.util.Random();
+//		retVal = r.nextGaussian() * gaussianError +  retVal;
 		return retVal;
 
 	}

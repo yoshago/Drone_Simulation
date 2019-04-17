@@ -28,7 +28,7 @@ public class Point{
 		if (!(o instanceof Point)) { 
 			return false; 
 		} 
-
+		
 		// typecast o to Complex so that we can compare data members  
 		Point c = (Point) o; 
 
