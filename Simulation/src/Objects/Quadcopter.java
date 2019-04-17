@@ -23,7 +23,7 @@ public class Quadcopter {
 	//	private OF of;
 	//	private Yaw yaw;
 	private GUI gui;
-	private double angle;
+	private int angle;
 	private int lidar_dist;
 	private RoomMap background;
 	private NavigationAlgorithm algo;
@@ -56,8 +56,8 @@ public class Quadcopter {
 		this.frontLidar=new Lidar(lidar_dist,0, this,lidarError);
 		this.rightLidar=new Lidar(lidar_dist,rightAngle, this, lidarError);
 		this.leftLidar=new Lidar(lidar_dist,leftAngle, this, lidarError);
-		Thread t1 =new Thread(this.frontLidar);  
-		/**t1.start(); 
+		/**Thread t1 =new Thread(this.frontLidar);  
+		t1.start(); 
 		Thread t2 =new Thread(this.rightLidar);  
 		t2.start(); 
 		Thread t3 =new Thread(this.leftLidar);  
@@ -71,7 +71,7 @@ public class Quadcopter {
 	public GUI getGui() {
 		return gui;
 	}
-	public double getAngle() {
+	public int getAngle() {
 		return angle;
 	}
 	public RoomMap getBackground() {
@@ -80,7 +80,7 @@ public class Quadcopter {
 	public void setPosition(Coordinate position) {
 		this.position = position;
 	}
-	public void setAngle(double angle) {
+	public void setAngle(int angle) {
 		this.angle = angle;
 	}
 	public void setGui(GUI gui) {
@@ -135,22 +135,18 @@ public class Quadcopter {
 	public void setAccAndVelocity(double a) {
 		this.acc=a;
 		this.velocity+=a*gui.getStepTime();
-		if(this.velocity>2) this.velocity=2.0;
-		if(this.velocity<0) this.velocity=0;
+		if(this.velocity>3) this.velocity=3.0;
+		if(this.velocity<-3) this.velocity=-3.0;
 		
 	}
 
 	public void turnRight() {
-		this.angle+=180.0*gui.getStepTime();
+		this.angle+=180*gui.getStepTime();
 		
 	}
 
 	public void turnLeft() {
-		this.angle-=180.0*gui.getStepTime();		
-	}
-
-	public void turn(double longestWay) {
-		this.angle+=10*longestWay;		
+		this.angle-=180*gui.getStepTime();		
 	}
 
 
