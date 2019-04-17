@@ -78,7 +78,7 @@ public class GUI extends JComponent{
 		if(quad.isLegalPosition(position)) {
 			setQuadPosition(position);
 			quad.setPosition(position);
-			time+=2*(Math.sqrt(distance/getQuad().getResolution()));//compute and add the time of each drive 
+			time+=2*(Math.sqrt(distance/40.0));//compute and add the time of each drive 
 		}
 		else {
 			gameOver();
@@ -87,7 +87,7 @@ public class GUI extends JComponent{
 	}
 	public void drive()
 	{
-		double driveLength=quad.getVelocity()*getQuad().getResolution()*stepTime;
+		double driveLength=quad.getVelocity()*40*stepTime;
 		Coordinate position = new Coordinate((int)(0.5+ quad.getPosition().x + driveLength*Math.sin(Math.toRadians(quad.getAngle()))),
 								(int)(0.5+quad.getPosition().y + driveLength*Math.cos(Math.toRadians(quad.getAngle()))));
 		if(quad.isLegalPosition(position)) {

@@ -17,9 +17,9 @@ public class Algo2 extends NavigationAlgorithm{
 		while(gui.getTime()<=300) {
 			System.out.println("time is: " + gui.getTime());
 			if(quad.getVelocity()<=quad.getFrontLidar().getCurrentDist()/1.2) 
-				quad.setAccAndVelocity(2.0);
+				quad.setAccAndVelocity(1.0);
 			else
-				quad.setAccAndVelocity(-2.0);
+				quad.setAccAndVelocity(-1.0);
 				if(quad.getRightLidar().getCurrentDist()>quad.getLeftLidar().getCurrentDist())
 					quad.turnRight();
 				else if(quad.getRightLidar().getCurrentDist()<quad.getLeftLidar().getCurrentDist())
