@@ -141,7 +141,7 @@ public class Quadcopter {
 	}
 
 	public void turnRight(double d) {
-		this.angle+=d*180*gui.getStepTime();
+		this.angle+=d*180.0*gui.getStepTime();
 		
 	}
 

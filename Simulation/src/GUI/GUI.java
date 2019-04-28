@@ -81,7 +81,7 @@ public class GUI extends JComponent{
 		if(quad.isLegalPosition(position)) {
 			setQuadPosition(position);
 			quad.setPosition(position);
-			time+=2*(Math.sqrt(distance/40.0));//compute and add the time of each drive 
+			time+=1.0/33.0;//compute and add the time of each drive 
 		}
 		else {
 			gameOver();

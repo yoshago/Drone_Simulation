@@ -14,16 +14,16 @@ public class Algo2 extends NavigationAlgorithm{
 	}
 
 	public void navigate() {
-		while(gui.getTime()<=300) {
+		if(gui.getTime()<=300) {
 			System.out.println("time is: " + gui.getTime());
 			double right_dist=quad.getRightLidar().getCurrentDist();
 			double left_dist=quad.getLeftLidar().getCurrentDist();
 			double front_dist=quad.getFrontLidar().getCurrentDist();
 			
 			if(quad.getVelocity()<=front_dist/1.2 && front_dist>=0.35) {
-				if(front_dist<right_dist && left_dist<right_dist)
+				if(front_dist<right_dist )
 					quad.turnRight(1.0);
-				else if(front_dist<left_dist && right_dist<left_dist)
+				else if(front_dist<left_dist )
 					quad.turnLeft(1.0);
 				else if(right_dist-left_dist>0)
 					quad.turnRight((right_dist-left_dist)/(left_dist+right_dist));
@@ -34,9 +34,9 @@ public class Algo2 extends NavigationAlgorithm{
 			else if(front_dist>0.35) {
 				quad.setAccAndVelocity(-1.0);
 				if(right_dist>left_dist)
-					quad.turnRight(1.0);
+					quad.turnRight(0.5);
 				else if(right_dist<left_dist)
-					quad.turnLeft(1.0);
+					quad.turnLeft(0.5);
 			}
 			else
 				alert();
@@ -78,7 +78,7 @@ public class Algo2 extends NavigationAlgorithm{
 //			double left_dist=quad.getLeftLidar().getCurrentDist();
 //			double front_dist=quad.getFrontLidar().getCurrentDist();
 
-			quad.setAccAndVelocity(-1.0);
+			quad.setAccAndVelocity(-quad.getVelocity()/gui.getStepTime());
 			if(quad.getVelocity()<0)
 				quad.setVelocity(0);
 			if(RL==1) 

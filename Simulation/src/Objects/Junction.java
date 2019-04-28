@@ -4,26 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Junction {
-	private int x;
-	private int y;
+	private Coordinate coor;
 	List<Integer> path=new ArrayList<Integer>();
 	
 	public Junction() {
-		this.x=0;
-		this.y=0;
+		this.coor.x=0;
+		this.coor.y=0;
 	}
-	public Junction(int x, int y) {
-		this.x=x;
-		this.y=y;
+	public Junction(Coordinate coor) {
+		this.coor=coor;
 	}
 	public Junction(Junction another) {
-		this.x=another.x;
-		this.y=another.y;
+		this.coor=another.coor;
 	}
 	     
 	public boolean isInJunction(Coordinate coor) {
-		double dist=Math.sqrt((coor.x-this.x)*(coor.x-this.x) + (coor.y-this.y)*(coor.y-this.y));
-		if(dist<=20)
+		if(this.coor.distance(coor)>=20.0)
 			return true;
 		return false;
 	}
