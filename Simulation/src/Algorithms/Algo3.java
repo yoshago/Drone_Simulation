@@ -27,11 +27,11 @@ public class Algo3 extends NavigationAlgorithm{
 			double left_dist=quad.getLeftLidar().getCurrentDist();
 			double front_dist=quad.getFrontLidar().getCurrentDist();
 			boolean is_right_jct=false, is_left_jct= false;
-			if(right_dist-last_right_dist>=0.5) {
+			if(right_dist-last_right_dist>=1.0) {
 				is_right_jct =true;
 				System.out.println("RIGHT JCT!");
 			}
-			if(left_dist-last_left_dist>=0.5) {
+			if(left_dist-last_left_dist>=1.0) {
 				is_left_jct =true;
 				System.out.println("LEFT JCT!");
 			}
@@ -42,21 +42,21 @@ public class Algo3 extends NavigationAlgorithm{
 				for (Junction jct : graph) 
 				{
 
-					if(quad.getPosition().isWithinRadius(0.5, jct.getCoordinate(), this.quad.getResolution())) 
+					if(quad.getPosition().isWithinRadius(1.5, jct.getCoordinate(), this.quad.getResolution())) 
 					{
 						addJunction = false;
 					}
 				}
 				if (addJunction) {
 					if(is_right_jct) {
-						double di= (right_dist*Math.cos(quad.getRightAngle())-last_right_dist*Math.cos(quad.getRightAngle()))/2;
-						Coordinate junction = new Coordinate((int) (quad.getPosition().x + di*Math.sin(quad.getAngle())),(int) (quad.getPosition().y + di*Math.cos(quad.getAngle())));
+						double di= (right_dist*Math.cos(quad.getRightAngle())+last_right_dist*Math.cos(quad.getRightAngle()))/2;
+						Coordinate junction = new Coordinate((int) (quad.getPosition().x + di*quad.getResolution()*Math.sin(Math.toRadians(quad.getAngle()))),(int) (quad.getPosition().y + di*quad.getResolution()*Math.cos(Math.toRadians(quad.getAngle()))));
 						graph.add(new Junction(junction,is_right_jct,is_left_jct));
 						gui.addJunction(junction.x, junction.y, 4);
 					}
 					else {
-						double di= (left_dist*Math.cos(quad.getRightAngle())-last_left_dist*Math.cos(quad.getRightAngle()))/2;
-						Coordinate junction = new Coordinate((int) (quad.getPosition().x + di*Math.sin(quad.getAngle())),(int) (quad.getPosition().y + di*Math.cos(quad.getAngle())));
+						double di= (left_dist*Math.cos(quad.getRightAngle())+last_left_dist*Math.cos(quad.getRightAngle()))/2;
+						Coordinate junction = new Coordinate((int) (quad.getPosition().x + di*quad.getResolution()*Math.sin(Math.toRadians(quad.getAngle()))),(int) (quad.getPosition().y + di*quad.getResolution()*Math.cos(Math.toRadians(quad.getAngle()))));
 						graph.add(new Junction(junction,is_right_jct,is_left_jct));
 						gui.addJunction(junction.x, junction.y, 4);
 					}
