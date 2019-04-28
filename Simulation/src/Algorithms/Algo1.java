@@ -25,12 +25,7 @@ public class Algo1 extends NavigationAlgorithm{
 		{
 			gui.turn(10);
 
-			try {
-				Thread.sleep(5);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 			double frontDist = quad.getFrontLidar().getCurrentDist();
 			double rightDist = quad.getRightLidar().getCurrentDist();
 			double leftDist = quad.getLeftLidar().getCurrentDist();
@@ -83,12 +78,7 @@ public class Algo1 extends NavigationAlgorithm{
 				System.out.println(longestDistance);
 				gui.turn(longestWay-gui.getQuad().getAngle());
 				gui.drive(true, 40);
-				try {
-					Thread.sleep(8);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 				
 				
 

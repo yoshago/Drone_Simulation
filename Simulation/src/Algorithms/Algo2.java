@@ -21,10 +21,10 @@ public class Algo2 extends NavigationAlgorithm{
 			double front_dist=quad.getFrontLidar().getCurrentDist();
 			
 			if(quad.getVelocity()<=front_dist/1.2 && front_dist>=0.35) {
-				if(front_dist<right_dist )
-					quad.turnRight(1.0);
-				else if(front_dist<left_dist )
-					quad.turnLeft(1.0);
+				if(front_dist<right_dist)
+					quad.turnRight(0.75);
+				else if(front_dist<left_dist)
+					quad.turnLeft(0.75);
 				else if(right_dist-left_dist>0)
 					quad.turnRight((right_dist-left_dist)/(left_dist+right_dist));
 				else if(left_dist-right_dist>0)

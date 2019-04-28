@@ -30,7 +30,7 @@ public class main {
 		int leftLidarAngle = -45;
 		int resolution = 40;
 		Coordinate start = new Coordinate(80,80);
-		File pngFile = new File("p14.png");
+		File pngFile = new File("p15.png");
 		RoomMap backgroundMap = new RoomMap(pngFile, resolution);
 		Quadcopter quad = new Quadcopter(backgroundMap, lidarDistance, start, rightLidarAngle, leftLidarAngle,resolution);
 		
