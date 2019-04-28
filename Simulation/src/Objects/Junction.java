@@ -20,7 +20,7 @@ public class Junction {
 		this.x=another.x;
 		this.y=another.y;
 	}
-	
+	     
 	public boolean isInJunction(Coordinate coor) {
 		double dist=Math.sqrt((coor.x-this.x)*(coor.x-this.x) + (coor.y-this.y)*(coor.y-this.y));
 		if(dist<=20)
