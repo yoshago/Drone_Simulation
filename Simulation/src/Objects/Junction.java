@@ -31,6 +31,9 @@ public class Junction {
 			return true;
 		return false;
 	}
+	public Coordinate getCoordinate() {
+		return this.coor;
+	}
 	
 	
 }
