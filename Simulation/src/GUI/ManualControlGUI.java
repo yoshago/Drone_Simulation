@@ -26,7 +26,6 @@ public class ManualControlGUI extends GUI implements KeyListener{
 		
 	}
 	public void keyPressed(KeyEvent e) {
-		System.out.println("pressed");
 		int key = e.getKeyCode();
 
 		if (key == KeyEvent.VK_LEFT) {
@@ -53,21 +52,28 @@ public class ManualControlGUI extends GUI implements KeyListener{
 			t1.run();
 		}
 		if (key == KeyEvent.VK_SPACE) {
-			numOfLinesAndPoints++;
-			repaint();
+			oneSecNevigate();
 		}
 
 	}
 
 	public void keyReleased(KeyEvent e) {  
-		System.out.println("Released");
 
 	}  
 	public void keyTyped(KeyEvent e) {
-		System.out.println("typed");
 
 
 	}  
-	
+	private void oneSecNevigate()
+	{
+		for(int i=0 ; i<33 ; i++) {
+			numOfLinesAndPoints++;
+			quad.getAlgo().navigate();
+			repaint();
+		}
+		System.out.println("v: " + quad.getVelocity());
+		System.out.println("time: "+quad.getGui().getTime());
+		System.out.println("fails: " +quad.getGui().fail);
+	}
 	
 }
