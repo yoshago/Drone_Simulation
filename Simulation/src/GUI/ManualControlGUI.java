@@ -66,7 +66,7 @@ public class ManualControlGUI extends GUI implements KeyListener{
 	}  
 	private void oneSecNevigate()
 	{
-		for(int i=0 ; i<33 ; i++) {
+		for(int i=0 ; i<17 ; i++) {
 			numOfLinesAndPoints++;
 			quad.getAlgo().navigate();
 			repaint();
