@@ -27,9 +27,12 @@ public class Junction {
 		
 	}
 	public boolean isInJunction(Coordinate coor) {
-		if(this.coor.distance(coor)>=20.0)
+		if(this.coor.distance(coor)<=20.0)
 			return true;
 		return false;
+	}
+	public Coordinate getCoordinate() {
+		return coor;
 	}
 	
 	

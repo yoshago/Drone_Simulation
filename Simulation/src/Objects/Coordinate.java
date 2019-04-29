@@ -23,7 +23,13 @@ public class Coordinate implements Comparable<Coordinate>{
 		if (this.distance(inCircle)<=resolution*pointRadius) return true;
 		return false;
 	}
-	
+	public double getAngle(Coordinate target) {
+		double angle = Math.toDegrees(Math.atan2(target.y - y, target.x - x));
+		if (angle<0) {
+			angle+=360;
+			}
+		return angle;
+	}
 	@Override
     public boolean equals(Object o) { 
   
