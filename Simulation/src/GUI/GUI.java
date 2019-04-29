@@ -155,8 +155,7 @@ public class GUI extends JComponent {
 	synchronized public void addJunction(int x, int y, int radius, Color color) {
 		Point addingPoint = new Point(x, y, radius, color);
 		Coordinate here = new Coordinate(addingPoint);
-		if (!junctions.contains(addingPoint))
-		{
+		if (!junctions.contains(addingPoint)) {
 			junctions.add(addingPoint);
 			repaint();
 		}
@@ -184,29 +183,28 @@ public class GUI extends JComponent {
 	@Override
 	synchronized protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for (int i = 0; i < numOfLinesAndPoints && i < lines.size(); i++) {
+		for (int i = 0; i < lines.size(); i++) {
 			Line line = lines.get(i);
 			g.setColor(line.color);
 			g.drawLine(line.x1, line.y1, line.x2, line.y2);
-			if (i == numOfLinesAndPoints - 1) {
-				if (quadPosition != null) {
-					g.setColor(quadPosition.color);
-					g.drawOval(line.x1 - quadPosition.radius / 2, line.y1 - quadPosition.radius / 2,
-							quadPosition.radius, quadPosition.radius);
-					g.fillOval(line.x1 - quadPosition.radius / 2, line.y1 - quadPosition.radius / 2,
-							quadPosition.radius, quadPosition.radius);
-				}
-			}
+
+//			if (quadPosition != null) {
+//				g.setColor(quadPosition.color);
+//				g.drawOval(line.x1 - quadPosition.radius / 2, line.y1 - quadPosition.radius / 2, quadPosition.radius,
+//						quadPosition.radius);
+//				g.fillOval(line.x1 - quadPosition.radius / 2, line.y1 - quadPosition.radius / 2, quadPosition.radius,
+//						quadPosition.radius);
+//			}
 
 		}
-		for (int i = 0; i < numOfLinesAndPoints * 2 / 3 && i < points.size(); i++) {
+		for (int i = 0; i < points.size(); i++) {
 			Point point = points.get(i);
 			g.setColor(point.color);
 			g.drawOval(point.getX() - point.radius / 2, point.getY() - point.radius / 2, point.radius, point.radius);
 			g.fillOval(point.getX() - point.radius / 2, point.getY() - point.radius / 2, point.radius, point.radius);
 
 		}
-		for (int i = 0; i < numOfLinesAndPoints && i < junctions.size(); i++) {
+		for (int i = 0; i < junctions.size(); i++) {
 			Point junction = junctions.get(i);
 			g.setColor(junction.color);
 			g.drawOval(junction.getX() - junction.radius / 2, junction.getY() - junction.radius / 2, junction.radius,
@@ -216,14 +214,14 @@ public class GUI extends JComponent {
 
 		}
 		if (quadPosition != null) {
-			if (numOfLinesAndPoints >= lines.size() || numOfLinesAndPoints == 0) {
-				g.setColor(quadPosition.color);
-				g.drawOval((int) quadPosition.x - quadPosition.radius / 2,
-						(int) quadPosition.y - quadPosition.radius / 2, quadPosition.radius, quadPosition.radius);
-				g.fillOval((int) quadPosition.x - quadPosition.radius / 2,
-						(int) quadPosition.y - quadPosition.radius / 2, quadPosition.radius, quadPosition.radius);
-			}
+
+			g.setColor(quadPosition.color);
+			g.drawOval((int) quadPosition.x - quadPosition.radius / 2, (int) quadPosition.y - quadPosition.radius / 2,
+					quadPosition.radius, quadPosition.radius);
+			g.fillOval((int) quadPosition.x - quadPosition.radius / 2, (int) quadPosition.y - quadPosition.radius / 2,
+					quadPosition.radius, quadPosition.radius);
 		}
+
 		if (gameOver) {
 			g.setColor(Color.orange);
 			g.setFont(new Font("TimesRoman", Font.BOLD, 42));
