@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 
 import Algorithms.Algo1;
 import Algorithms.Algo2;
+import Algorithms.Algo3;
 import Algorithms.NavigationAlgorithm;
 import GUI.ManualControlGUI;
 import Objects.Coordinate;
@@ -30,7 +31,9 @@ public class main {
 		int leftLidarAngle = -45;
 		int resolution = 40;
 		Coordinate start = new Coordinate(80,80);
+
 		File pngFile = new File("p11.png");
+
 		RoomMap backgroundMap = new RoomMap(pngFile, resolution);
 		Quadcopter quad = new Quadcopter(backgroundMap, lidarDistance, start, rightLidarAngle, leftLidarAngle,resolution);
 		
@@ -38,7 +41,7 @@ public class main {
 		JFrame testFrame = new JFrame();
 		testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		final ManualControlGUI comp = new ManualControlGUI(quad);
-		NavigationAlgorithm algo = new Algo2(comp);
+		NavigationAlgorithm algo = new Algo3(comp);
 		
 		quad.setAlgo(algo);
 		comp.setPreferredSize(new Dimension(backgroundMap.getWidth(), backgroundMap.getHeight()+40));

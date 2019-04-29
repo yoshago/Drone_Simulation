@@ -1,10 +1,16 @@
 package Objects;
 
+import GUI.Point;
+
 public class Coordinate implements Comparable<Coordinate>{
 	public int x, y;
 	public Coordinate(int x, int y){
 		this.x =x;
 		this.y =y;
+	}
+	public Coordinate(Point p) {
+		this.x = p.getX();
+		this.y = p.getY();
 	}
 	
 	public int compareTo(Coordinate co){  

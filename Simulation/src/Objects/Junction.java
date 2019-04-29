@@ -32,7 +32,7 @@ public class Junction {
 		return false;
 	}
 	public Coordinate getCoordinate() {
-		return coor;
+		return this.coor;
 	}
 	
 	
