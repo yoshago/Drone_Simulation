@@ -31,9 +31,10 @@ public class Algo3 extends NavigationAlgorithm{
 			last_right_dist = right_dist;
 			last_left_dist = left_dist;
 			if(quad.getVelocity()<=front_dist/1.2 && front_dist>=0.35) {
-				if(front_dist<right_dist )
+				int rand=(int)(Math.random()*2.0);
+				if(front_dist<right_dist && rand==1 )
 					quad.turnRight(1.0);
-				else if(front_dist<left_dist )
+				else if(front_dist<left_dist && rand==0)
 					quad.turnLeft(1.0);
 				else if(right_dist-left_dist>0)
 					quad.turnRight((right_dist-left_dist)/(left_dist+right_dist));
@@ -103,12 +104,12 @@ public class Algo3 extends NavigationAlgorithm{
 			//			double front_dist=quad.getFrontLidar().getCurrentDist();
 
 			quad.setAccAndVelocity(-quad.getVelocity()/gui.getStepTime());
-			if(quad.getVelocity()<0)
-				quad.setVelocity(0);
+//			if(quad.getVelocity()<0)
+//				quad.setVelocity(0);
 			if(RL==1) 
-				quad.turnRight(1.0);
+				quad.turnRight(0.2);
 			else 
-				quad.turnLeft(1.0);
+				quad.turnLeft(0.2);
 
 			gui.drive();
 		}

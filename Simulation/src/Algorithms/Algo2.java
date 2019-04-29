@@ -24,7 +24,7 @@ public class Algo2 extends NavigationAlgorithm{
 	}
 
 	public void navigate() {
-		if(gui.getTime()<=200) {
+		if(gui.getTime()<=300) {
 			System.out.println("time is: " + gui.getTime());
 			
 			double right_dist=quad.getRightLidar().getCurrentDist();
@@ -61,33 +61,7 @@ public class Algo2 extends NavigationAlgorithm{
 		}
 //		else System.out.println("list contains: "+junc_list.size());
 		
-		else if( gui.getTime()<=300){
-			System.out.println("num of junction: "+ junc_list.size());
-			goTo(junc_list.get(junc_list.size()-1));
-			double right_dist=quad.getRightLidar().getCurrentDist();
-			double left_dist=quad.getLeftLidar().getCurrentDist();
-			double front_dist=quad.getFrontLidar().getCurrentDist();
-			if(quad.getVelocity()<=front_dist/1.2 && front_dist>=0.35) {
-				if(front_dist<right_dist)
-					quad.turnRight(0.75);
-				else if(front_dist<left_dist)
-					quad.turnLeft(0.75);
-				else if(right_dist-left_dist>0)
-					quad.turnRight((right_dist-left_dist)/(left_dist+right_dist));
-				else if(left_dist-right_dist>0)
-					quad.turnLeft((left_dist-right_dist)/(left_dist+right_dist));
-				quad.setAccAndVelocity(1.0);
-			}
-			else if(front_dist>0.35) {
-				quad.setAccAndVelocity(-1.0);
-				if(right_dist>left_dist)
-					quad.turnRight(0.5);
-				else if(right_dist<left_dist)
-					quad.turnLeft(0.5);
-			}
-			else
-				alert();	
-		}
+		
 		
 	}
 
