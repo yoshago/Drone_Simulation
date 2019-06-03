@@ -6,15 +6,17 @@ import Objects.Quadcopter;
 public class Algo2 extends NavigationAlgorithm{
 	
 	Quadcopter quad;
-
+	double tempTime;
 	
 	public Algo2(GUI gui) {
 		this.gui = gui;
 		this.quad=gui.getQuad();
+		tempTime = gui.getTime();
 	}
 
 	public void navigate() {
-		while(gui.getTime()<=300) {
+		tempTime = gui.getTime();
+		while(gui.getTime()<=tempTime+1.0) {
 			System.out.println("time is: " + gui.getTime());
 			double right_dist=quad.getRightLidar().getCurrentDist();
 			double left_dist=quad.getLeftLidar().getCurrentDist();
@@ -39,7 +41,7 @@ public class Algo2 extends NavigationAlgorithm{
 					quad.turnLeft(1.0);
 			}
 			else
-				alert();
+				alert(right_dist, left_dist);
 			
 			System.out.println("v: " + quad.getVelocity());
 			System.out.println("d: " + front_dist);
@@ -71,9 +73,17 @@ public class Algo2 extends NavigationAlgorithm{
 		}
 	}
 
-	private void alert() {
-		int RL=(int)(Math.random()*2.0);
-		while(gui.getTime()<=300 && quad.getFrontLidar().getCurrentDist()<=1.0)
+	private void alert(double right_dist, double left_dist) {
+		int RL;
+		if(right_dist/left_dist>=1.5)
+			RL=1;
+		else if(left_dist/right_dist>=1.5)
+			RL=0;
+		else
+			RL=(int)(Math.random()*2.0);
+
+		tempTime = gui.getTime();
+		while(gui.getTime()<=tempTime+1.0)
 		{
 //			double right_dist=quad.getRightLidar().getCurrentDist();
 //			double left_dist=quad.getLeftLidar().getCurrentDist();

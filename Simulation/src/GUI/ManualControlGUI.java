@@ -48,12 +48,11 @@ public class ManualControlGUI extends GUI implements KeyListener{
 			drive(false, 5);
 		}
 		if (key == KeyEvent.VK_R) {
-			Thread t1 = new Thread(quad.getAlgo());
-			t1.run();
+
 		}
 		if (key == KeyEvent.VK_SPACE) {
-			numOfLinesAndPoints++;
-			repaint();
+			
+			quad.getAlgo().navigate();
 		}
 
 	}

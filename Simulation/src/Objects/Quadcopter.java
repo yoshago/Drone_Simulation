@@ -111,9 +111,17 @@ public class Quadcopter {
 		this.algo = algo;
 	}
 
-	public boolean isLegalPosition(Coordinate position) {
-		if(background.checkCoordinate(position) == 1) return true;
-		return false;
+	public Coordinate isLegalPosition(Coordinate position) {
+		int i=1;
+		Coordinate coor = new Coordinate((int) (gui.getRealquadposition().x + i*Math.sin(angle)), (int) (gui.getRealquadposition().y + i*Math.cos(angle)));
+		while(!coor.equals(position)) {
+			coor = new Coordinate((int) (gui.getRealquadposition().x + i*Math.sin(angle)), (int) (gui.getRealquadposition().y + i*Math.cos(angle)));
+			if(background.checkCoordinate(coor) ==0 ) return coor;
+			i++;
+
+		}
+		
+		return new Coordinate(-1,-1);
 	}
 
 	public int getRightAngle() {
@@ -141,12 +149,12 @@ public class Quadcopter {
 	}
 
 	public void turnRight(double d) {
-		this.angle+=d*180*gui.getStepTime();
+		this.angle+=d*180.0*gui.getStepTime();
 		
 	}
 
 	public void turnLeft(double d) {
-		this.angle-=d*180*gui.getStepTime();		
+		this.angle-=d*180.0*gui.getStepTime();		
 	}
 
 	public void setVelocity(double v) {

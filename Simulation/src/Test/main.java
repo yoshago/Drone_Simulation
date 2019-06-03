@@ -26,8 +26,8 @@ public class main {
 
 	public static void main(String[] args) {
 		int lidarDistance = 3;
-		int rightLidarAngle = 60;
-		int leftLidarAngle = -60;
+		int rightLidarAngle = 45;
+		int leftLidarAngle = -45;
 		int resolution = 40;
 		Coordinate start = new Coordinate(80,80);
 		File pngFile = new File("p14.png");

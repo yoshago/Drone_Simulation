@@ -6,6 +6,10 @@ public class Coordinate implements Comparable<Coordinate>{
 		this.x =x;
 		this.y =y;
 	}
+	public Coordinate(Coordinate another){
+		this.x =another.x;
+		this.y =another.y;
+	}
 	
 	public int compareTo(Coordinate co){  
 		if(this.x==co.x  && this.y == co.y)

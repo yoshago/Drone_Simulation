@@ -30,8 +30,8 @@ public class GUI extends JComponent{
 
 
 	public static class quadPoint{
-		double x; 
-		double y;
+		public double x; 
+		public double y;
 		final int radius;
 		final Color color;
 
@@ -54,10 +54,10 @@ public class GUI extends JComponent{
 	protected NavigationAlgorithm algo;
 	protected double stepTime=1.0/33.0;
 	public int fail=0;
-	private quadPoint realquadposition;
+	protected quadPoint realquadposition;
 	public GUI() {
-		quadPosition = new quadPoint(60,60,5,Color.yellow);
-		realquadposition=new quadPoint(60,60,5,Color.yellow);
+		quadPosition = new quadPoint(80,80,5,Color.yellow);
+		realquadposition=new quadPoint(80,80,5,Color.yellow);
 	}
 
 	public GUI(Quadcopter quad) {
@@ -78,7 +78,7 @@ public class GUI extends JComponent{
 		if(direction) directionMult = 1;
 
 		Coordinate position = new Coordinate((int)(0.5+quad.getPosition().x + directionMult*distance*Math.sin(Math.toRadians(quad.getAngle()))),(int)(0.5+quad.getPosition().y + directionMult*distance*Math.cos(Math.toRadians(quad.getAngle()))));
-		if(quad.isLegalPosition(position)) {
+		if(quad.isLegalPosition(position).x==-1) {
 			setQuadPosition(position);
 			quad.setPosition(position);
 			time+=2*(Math.sqrt(distance/40.0));//compute and add the time of each drive 
@@ -88,21 +88,27 @@ public class GUI extends JComponent{
 		}
 
 	}
+
 	public void drive()
 	{
 		double driveLength=quad.getVelocity()*40*stepTime;
 		realquadposition=new quadPoint(realquadposition.x+driveLength*Math.sin(Math.toRadians(quad.getAngle())),realquadposition.y+driveLength*Math.cos(Math.toRadians(quad.getAngle())),5,Color.yellow);
 		Coordinate position = new Coordinate((int)(0.5+realquadposition.x),
 								(int)(0.5+realquadposition.y));
-		if(quad.isLegalPosition(position)) {
+		Coordinate temp=new Coordinate(quad.isLegalPosition(position));
+		if(temp.x==-1) {
 			setQuadPosition(position);
 			quad.setPosition(position);
 		}
-		else 
+		else {
 			gameOver();
+			realquadposition=new quadPoint(temp.x,temp.y,5,Color.yellow);
+			setQuadPosition(temp);
+			quad.setPosition(temp);
+		}
 		time+=stepTime;
-		//System.out.println("X:  " + position.x);
-		//System.out.println("Y:  " + position.y);
+		System.out.println("time is: " + time+" X:  " + position.x);
+		System.out.println("time is: " + time+" Y:  " + position.y);
 
 	}
 
@@ -113,6 +119,7 @@ public class GUI extends JComponent{
 		//gameOver = true;
 //		quadPosition = null;
 		this.fail++;
+		
 		//		lines.clear();
 		//		points.clear();
 
@@ -170,7 +177,7 @@ public class GUI extends JComponent{
 	@Override
 	synchronized protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for (int i=0;i < numOfLinesAndPoints&&i<lines.size();i++) {
+		for (int i=0;i<lines.size();i++) {
 			Line line = lines.get(i);
 			g.setColor(line.color);
 			g.drawLine(line.x1, line.y1, line.x2, line.y2);
@@ -183,7 +190,7 @@ public class GUI extends JComponent{
 			}
 
 		}
-		for (int i=0;i < numOfLinesAndPoints*2/3&&i<points.size();i++) {
+		for (int i=0;i<points.size();i++) {
 			Point point = points.get(i);
 			g.setColor(point.color);
 			g.drawOval(point.x-point.radius/2, point.y-point.radius/2, point.radius, point.radius);
@@ -223,6 +230,10 @@ public class GUI extends JComponent{
 	}
 	public double getStepTime() {
 		return this.stepTime;
+	}
+
+	public quadPoint getRealquadposition() {
+		return realquadposition;
 	}
 
 
