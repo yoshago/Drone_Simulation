@@ -3,8 +3,8 @@ import java.awt.Color;
 
 
 public class Point{
-	final int x; 
-	final int y;
+	private final int x; 
+	private final int y;
 	final int radius;
 	final Color color;
 
@@ -33,8 +33,16 @@ public class Point{
 		Point c = (Point) o; 
 
 		// Compare the data members and return accordingly  
-		return Integer.compare(x, c.x) == 0
-				&& Integer.compare(y, c.y) == 0; 
+		return Integer.compare(getX(), c.getX()) == 0
+				&& Integer.compare(getY(), c.getY()) == 0; 
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
 	} 
 
 

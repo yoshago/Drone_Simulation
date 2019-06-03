@@ -1,4 +1,5 @@
 package GUI;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,15 +24,20 @@ import javax.swing.Timer;
 
 import Algorithms.NavigationAlgorithm;
 import Objects.Coordinate;
+import Objects.Junction;
 import Objects.Quadcopter;
 
-public class GUI extends JComponent{
+public class GUI extends JComponent {
 
-
-
+<<<<<<< HEAD
 	public static class quadPoint{
 		public double x; 
 		public double y;
+=======
+	public static class quadPoint {
+		double x;
+		double y;
+>>>>>>> 3b47c97e7eaf9651b90097d5f4d24acf23f2c939
 		final int radius;
 		final Color color;
 
@@ -40,55 +46,81 @@ public class GUI extends JComponent{
 			this.y = y;
 			this.radius = radius;
 			this.color = color;
-		}		
+		}
 	}
-
 
 	protected final ArrayList<Line> lines = new ArrayList<Line>();
 	protected final ArrayList<Point> points = new ArrayList<Point>();
-	protected int numOfLinesAndPoints=0;
+	protected final ArrayList<Point> junctions = new ArrayList<Point>();
+	protected int numOfLinesAndPoints = 0;
 	protected quadPoint quadPosition;
-	protected Quadcopter quad; 
+	protected Quadcopter quad;
 	protected boolean gameOver = false;
-	protected double time=0;
+	protected double time = 0;
 	protected NavigationAlgorithm algo;
+<<<<<<< HEAD
 	protected double stepTime=1.0/33.0;
 	public int fail=0;
 	protected quadPoint realquadposition;
 	public GUI() {
 		quadPosition = new quadPoint(80,80,5,Color.yellow);
 		realquadposition=new quadPoint(80,80,5,Color.yellow);
+=======
+	protected double stepTime = 1.0 / 33.0;
+	public int fail = 0;
+	private quadPoint realquadposition;
+
+	public GUI() {
+		quadPosition = new quadPoint(80, 80, 5, Color.yellow);
+		realquadposition = new quadPoint(80, 80, 5, Color.yellow);
+>>>>>>> 3b47c97e7eaf9651b90097d5f4d24acf23f2c939
 	}
 
 	public GUI(Quadcopter quad) {
 		this.quad = quad;
 		quad.setGui(this);
+<<<<<<< HEAD
 		quadPosition = new quadPoint(quad.getPosition().x,quad.getPosition().y,5,Color.yellow);
 		realquadposition=new quadPoint(quad.getPosition().x,quad.getPosition().y,5,Color.yellow);
+=======
+		quadPosition = new quadPoint(quad.getPosition().x, quad.getPosition().y, 5, Color.yellow);
+		realquadposition = new quadPoint(quad.getPosition().x, quad.getPosition().y, 5, Color.yellow);
+>>>>>>> 3b47c97e7eaf9651b90097d5f4d24acf23f2c939
 	}
 
 	public void turn(int angle) {
-		quad.setAngle((quad.getAngle()+angle)%360);
-
+		quad.setAngle((quad.getAngle() + angle) % 360);
 
 	}
 
 	public void drive(boolean direction, int distance) {
 		int directionMult = -1;
+<<<<<<< HEAD
 		if(direction) directionMult = 1;
 
 		Coordinate position = new Coordinate((int)(0.5+quad.getPosition().x + directionMult*distance*Math.sin(Math.toRadians(quad.getAngle()))),(int)(0.5+quad.getPosition().y + directionMult*distance*Math.cos(Math.toRadians(quad.getAngle()))));
 		if(quad.isLegalPosition(position).x==-1) {
+=======
+		if (direction)
+			directionMult = 1;
+
+		Coordinate position = new Coordinate(
+				(int) (0.5 + quad.getPosition().x
+						+ directionMult * distance * Math.sin(Math.toRadians(quad.getAngle()))),
+				(int) (0.5 + quad.getPosition().y
+						+ directionMult * distance * Math.cos(Math.toRadians(quad.getAngle()))));
+		if (quad.isLegalPosition(position)) {
+>>>>>>> 3b47c97e7eaf9651b90097d5f4d24acf23f2c939
 			setQuadPosition(position);
 			quad.setPosition(position);
-			time+=2*(Math.sqrt(distance/40.0));//compute and add the time of each drive 
-		}
-		else {
+			time += 1.0 / 33.0;// compute and add the time of each drive
+		} else {
 			gameOver();
 		}
 
 	}
 
+<<<<<<< HEAD
 	public void drive()
 	{
 		double driveLength=quad.getVelocity()*40*stepTime;
@@ -109,26 +141,51 @@ public class GUI extends JComponent{
 		time+=stepTime;
 		System.out.println("time is: " + time+" X:  " + position.x);
 		System.out.println("time is: " + time+" Y:  " + position.y);
+=======
+	public void drive() {
+		double driveLength = quad.getVelocity() * 40 * stepTime;
+		realquadposition = new quadPoint(realquadposition.x + driveLength * Math.sin(Math.toRadians(quad.getAngle())),
+				realquadposition.y + driveLength * Math.cos(Math.toRadians(quad.getAngle())), 5, Color.yellow);
+		Coordinate position = new Coordinate((int) (0.5 + realquadposition.x), (int) (0.5 + realquadposition.y));
+		if (quad.isLegalPosition(position)) {
+			setQuadPosition(position);
+			quad.setPosition(position);
+		} else
+			gameOver();
+		time += stepTime;
+		// System.out.println("X: " + position.x);
+		// System.out.println("Y: " + position.y);
+>>>>>>> 3b47c97e7eaf9651b90097d5f4d24acf23f2c939
 
 	}
 
-
-
-
 	private void gameOver() {
+<<<<<<< HEAD
 		//gameOver = true;
 //		quadPosition = null;
 		this.fail++;
 		
 		//		lines.clear();
 		//		points.clear();
+=======
+		// gameOver = true;
+		// quadPosition = null;
+		this.fail++;
+		// lines.clear();
+		// points.clear();
+>>>>>>> 3b47c97e7eaf9651b90097d5f4d24acf23f2c939
 
 		repaint();
 
 	}
 
+<<<<<<< HEAD
 	protected void setQuadPosition(Coordinate co) {	
 		addLine((int)quadPosition.x,(int)quadPosition.y,co.x, co.y, Color.blue);
+=======
+	protected void setQuadPosition(Coordinate co) {
+		addLine((int) quadPosition.x, (int) quadPosition.y, co.x, co.y, Color.blue);
+>>>>>>> 3b47c97e7eaf9651b90097d5f4d24acf23f2c939
 		quadPosition.x = co.x;
 		quadPosition.y = co.y;
 		repaint();
@@ -140,20 +197,33 @@ public class GUI extends JComponent{
 
 	synchronized public void addPoint(int x, int y, int radius, Color color) {
 		Point addingPoint = new Point(x, y, radius, color);
-		if(!points.contains(addingPoint)) {
+		if (!points.contains(addingPoint)) {
 			boolean didAddPoint = points.add(addingPoint);
-			if (didAddPoint) 
-				if(points.size() ==5) {
+			if (didAddPoint)
+				if (points.size() == 5) {
 					Iterator<Point> it = points.iterator();
-					while(it.hasNext()) {
+					while (it.hasNext()) {
 						Point p = (Point) it.next();
-						System.out.println("hi point "+ p.x + " " + p.y);
+						System.out.println("hi point " + p.getX() + " " + p.getY());
 					}
 				}
 
-
 			repaint();
 		}
+	}
+
+	synchronized public void addJunction(int x, int y, int radius) {
+		addJunction(x, y, radius, Color.green);
+	}
+
+	synchronized public void addJunction(int x, int y, int radius, Color color) {
+		Point addingPoint = new Point(x, y, radius, color);
+		Coordinate here = new Coordinate(addingPoint);
+		if (!junctions.contains(addingPoint)) {
+			junctions.add(addingPoint);
+			repaint();
+		}
+
 	}
 
 	synchronized public void addLine(int x1, int x2, int x3, int x4) {
@@ -161,10 +231,10 @@ public class GUI extends JComponent{
 	}
 
 	synchronized public void addLine(int x1, int x2, int x3, int x4, Color color) {
-		Line addingLine = new Line(x1,x2,x3,x4, color);
+		Line addingLine = new Line(x1, x2, x3, x4, color);
 		if (!lines.contains(addingLine)) {
-			boolean didAddline = lines.add(addingLine); 
-			//		if(didAddline) System.out.println("hi line");
+			boolean didAddline = lines.add(addingLine);
+			// if(didAddline) System.out.println("hi line");
 			repaint();
 		}
 	}
@@ -177,47 +247,81 @@ public class GUI extends JComponent{
 	@Override
 	synchronized protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+<<<<<<< HEAD
 		for (int i=0;i<lines.size();i++) {
+=======
+		for (int i = 0; i < lines.size(); i++) {
+>>>>>>> 3b47c97e7eaf9651b90097d5f4d24acf23f2c939
 			Line line = lines.get(i);
 			g.setColor(line.color);
 			g.drawLine(line.x1, line.y1, line.x2, line.y2);
-			if(i==numOfLinesAndPoints-1) {
-				if(quadPosition!=null) {
-					g.setColor(quadPosition.color);
-					g.drawOval(line.x1-quadPosition.radius/2, line.y1-quadPosition.radius/2, quadPosition.radius, quadPosition.radius);
-					g.fillOval(line.x1-quadPosition.radius/2, line.y1-quadPosition.radius/2 , quadPosition.radius, quadPosition.radius);
-				}
-			}
+
+//			if (quadPosition != null) {
+//				g.setColor(quadPosition.color);
+//				g.drawOval(line.x1 - quadPosition.radius / 2, line.y1 - quadPosition.radius / 2, quadPosition.radius,
+//						quadPosition.radius);
+//				g.fillOval(line.x1 - quadPosition.radius / 2, line.y1 - quadPosition.radius / 2, quadPosition.radius,
+//						quadPosition.radius);
+//			}
 
 		}
+<<<<<<< HEAD
 		for (int i=0;i<points.size();i++) {
+=======
+		for (int i = 0; i < points.size(); i++) {
+>>>>>>> 3b47c97e7eaf9651b90097d5f4d24acf23f2c939
 			Point point = points.get(i);
 			g.setColor(point.color);
-			g.drawOval(point.x-point.radius/2, point.y-point.radius/2, point.radius, point.radius);
-			g.fillOval(point.x-point.radius/2, point.y-point.radius/2 , point.radius, point.radius); 
+			g.drawOval(point.getX() - point.radius / 2, point.getY() - point.radius / 2, point.radius, point.radius);
+			g.fillOval(point.getX() - point.radius / 2, point.getY() - point.radius / 2, point.radius, point.radius);
+
+		}
+		for (int i = 0; i < junctions.size(); i++) {
+			Point junction = junctions.get(i);
+			g.setColor(junction.color);
+			g.drawOval(junction.getX() - junction.radius / 2, junction.getY() - junction.radius / 2, junction.radius,
+					junction.radius);
+			g.fillOval(junction.getX() - junction.radius / 2, junction.getY() - junction.radius / 2, junction.radius,
+					junction.radius);
 
 		}
 		if (quadPosition != null) {
+<<<<<<< HEAD
 			if(numOfLinesAndPoints>=lines.size()||numOfLinesAndPoints==0) {
 				g.setColor(quadPosition.color);
 				g.drawOval((int)quadPosition.x-quadPosition.radius/2, (int)quadPosition.y-quadPosition.radius/2, quadPosition.radius, quadPosition.radius);
 				g.fillOval((int)quadPosition.x-quadPosition.radius/2, (int)quadPosition.y-quadPosition.radius/2 , quadPosition.radius, quadPosition.radius);
 			}
+=======
+
+			g.setColor(quadPosition.color);
+			g.drawOval((int) quadPosition.x - quadPosition.radius / 2, (int) quadPosition.y - quadPosition.radius / 2,
+					quadPosition.radius, quadPosition.radius);
+			g.fillOval((int) quadPosition.x - quadPosition.radius / 2, (int) quadPosition.y - quadPosition.radius / 2,
+					quadPosition.radius, quadPosition.radius);
+>>>>>>> 3b47c97e7eaf9651b90097d5f4d24acf23f2c939
 		}
-		if(gameOver) {
+
+		if (gameOver) {
 			g.setColor(Color.orange);
-			g.setFont(new Font("TimesRoman", Font.BOLD, 42)); 
+			g.setFont(new Font("TimesRoman", Font.BOLD, 42));
 			g.drawString("GAME OVER", 60, 60);
 		}
 		g.setColor(Color.black);
-		g.drawString("Quad's direction", 30, quad.getBackground().getHeight()+20);
-		g.drawLine(quad.getBackground().getWidth()/2, quad.getBackground().getHeight()+20, (int) (quad.getBackground().getWidth()/2 + 15*Math.sin(Math.toRadians(quad.getAngle()))), (int)(quad.getBackground().getHeight()+20 + 15*Math.cos(Math.toRadians(quad.getAngle()))));
+		g.drawString("Quad's direction", 30, quad.getBackground().getHeight() + 20);
+		g.drawLine(quad.getBackground().getWidth() / 2, quad.getBackground().getHeight() + 20,
+				(int) (quad.getBackground().getWidth() / 2 + 15 * Math.sin(Math.toRadians(quad.getAngle()))),
+				(int) (quad.getBackground().getHeight() + 20 + 15 * Math.cos(Math.toRadians(quad.getAngle()))));
 		g.setColor(Color.red);
-		g.drawOval((int) (quad.getBackground().getWidth()/2 + 15*Math.sin(Math.toRadians(quad.getAngle())))-2, (int)(quad.getBackground().getHeight()+20 + 15*Math.cos(Math.toRadians(quad.getAngle())))-2,5,5);
-		g.fillOval((int) (quad.getBackground().getWidth()/2 + 15*Math.sin(Math.toRadians(quad.getAngle())))-2, (int)(quad.getBackground().getHeight()+20 + 15*Math.cos(Math.toRadians(quad.getAngle())))-2,5,5);
-
+		g.drawOval((int) (quad.getBackground().getWidth() / 2 + 15 * Math.sin(Math.toRadians(quad.getAngle()))) - 2,
+				(int) (quad.getBackground().getHeight() + 20 + 15 * Math.cos(Math.toRadians(quad.getAngle()))) - 2, 5,
+				5);
+		g.fillOval((int) (quad.getBackground().getWidth() / 2 + 15 * Math.sin(Math.toRadians(quad.getAngle()))) - 2,
+				(int) (quad.getBackground().getHeight() + 20 + 15 * Math.cos(Math.toRadians(quad.getAngle()))) - 2, 5,
+				5);
 
 	}
+
 	public void setQuad(Quadcopter quad) {
 		this.quad = quad;
 	}
@@ -225,18 +329,22 @@ public class GUI extends JComponent{
 	public Quadcopter getQuad() {
 		return quad;
 	}
+
 	public double getTime() {
 		return time;
 	}
+
 	public double getStepTime() {
 		return this.stepTime;
 	}
 
+<<<<<<< HEAD
 	public quadPoint getRealquadposition() {
 		return realquadposition;
 	}
 
 
 
+=======
+>>>>>>> 3b47c97e7eaf9651b90097d5f4d24acf23f2c939
 }
-

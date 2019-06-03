@@ -51,8 +51,12 @@ public class ManualControlGUI extends GUI implements KeyListener{
 
 		}
 		if (key == KeyEvent.VK_SPACE) {
+<<<<<<< HEAD
 			
 			quad.getAlgo().navigate();
+=======
+			oneSecNevigate();
+>>>>>>> 3b47c97e7eaf9651b90097d5f4d24acf23f2c939
 		}
 
 	}
@@ -64,6 +68,16 @@ public class ManualControlGUI extends GUI implements KeyListener{
 
 
 	}  
-	
+	private void oneSecNevigate()
+	{
+		for(int i=0 ; i<11 ; i++) {
+			numOfLinesAndPoints++;
+			quad.getAlgo().navigate();
+			repaint();
+		}
+		System.out.println("v: " + quad.getVelocity());
+		System.out.println("time: "+quad.getGui().getTime());
+		System.out.println("fails: " +quad.getGui().fail);
+	}
 	
 }

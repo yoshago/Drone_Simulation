@@ -1,14 +1,22 @@
 package Objects;
 
+import GUI.Point;
+
 public class Coordinate implements Comparable<Coordinate>{
 	public int x, y;
 	public Coordinate(int x, int y){
 		this.x =x;
 		this.y =y;
 	}
+<<<<<<< HEAD
 	public Coordinate(Coordinate another){
 		this.x =another.x;
 		this.y =another.y;
+=======
+	public Coordinate(Point p) {
+		this.x = p.getX();
+		this.y = p.getY();
+>>>>>>> 3b47c97e7eaf9651b90097d5f4d24acf23f2c939
 	}
 	
 	public int compareTo(Coordinate co){  
@@ -27,7 +35,13 @@ public class Coordinate implements Comparable<Coordinate>{
 		if (this.distance(inCircle)<=resolution*pointRadius) return true;
 		return false;
 	}
-	
+	public double getAngle(Coordinate target) {
+		double angle = Math.toDegrees(Math.atan2(target.y - y, target.x - x));
+		if (angle<0) {
+			angle+=360;
+			}
+		return angle;
+	}
 	@Override
     public boolean equals(Object o) { 
   
